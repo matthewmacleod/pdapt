@@ -4,32 +4,71 @@ Installation
 pdapt uses python3 by default
 
 
-cd
-cd develop
-virtualenv -p /usr/bin/python3 pdapt
+Virtualenv setup
+-------------------------------------
+      cd
 
-cd pdapt
+      cd develop
 
-./bin/easy_install Sphinx
-./bin/easy_install ipython
+      virtualenv -p /usr/bin/python3 pdapt
+
+      cd pdapt
 
 Lastly, activate your environment:
 
       source bin/activate
 
-document requirements
+Documentation setup
+-------------------------------------
 
-    ./bin/pip3 freeze > requirements.txt
+      ./bin/easy_install Sphinx
 
 
-mkdir doc
-../bin/sphinx-quickstart
-[add autodocumentation]
+document requirements:
 
-Edit conf.py to specify sys.path: sys.path.insert(0, os.path.abspath('..'))
+     ./bin/pip3 freeze > requirements.txt
 
-../bin/sphinx-apidoc -o . ..
+      mkdir doc
 
-make html
+      ../bin/sphinx-quickstart
 
-firefox _build/html/index.html
+  *do not forget to add autodocumentation*
+
+ Edit conf.py to specify sys.path: sys.path.insert(0, os.path.abspath('..'))
+
+      ../bin/sphinx-apidoc -o . ..
+
+      make html
+
+      firefox _build/html/index.html
+
+
+Additional packages
+-------------------------------------
+
+      ./bin/easy_install ipython
+
+      ./bin/easy_install numpy
+
+      ./bin/easy_install scipy
+
+      ./bin/easy_install matplotlib
+
+      ./bin/easy_install nose
+
+      ./bin/easy_install coverage
+
+      ./bin/easy_install pyflakes
+
+      ./bin/easy_install pep8
+
+
+
+Addition packages for cross-checking code
+-------------------------------------
+
+      ./bin/easy_install pandas
+
+      ./bin/easy_install scikit-learn
+
+
