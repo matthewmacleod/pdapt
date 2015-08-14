@@ -1,5 +1,24 @@
 import math, sys, os
 
+""" Maths module
+    basic linear algebra
+    statistics
+    probability
+    machine learning
+"""
+
+import math
+
+def test_func(x):
+    """This function will try to calculate:
+
+    .. math::
+              \sum_{i=1}^{\\infty} x_{i}
+
+    good luck!
+    """
+    pass
+
 
 def vector_add(v,w):
     """ add corresponding elements """
@@ -18,13 +37,60 @@ def dot(v,w):
     """
     return sum(v_i * w_i for v_i, w_i in zip(v, w))
 
-def test_func(x):
-    """This function will try to calculate:
+def vector_sum(vectors):
+    return reduce(vector_add, vectors)
 
-    .. math::
-              \sum_{i=1}^{\\infty} x_{i}
+def scalar_multiply(c, v):
+    return map(lambda x: c*x, v)
 
-    good luck!
-    """
-    pass
+def vector_mean(vectors):
+    """ compute the vector whose ith element is mean of the
+    ith elements of the input vectors"""
+    n = len(vectors)
+    return scalar_multiply(1/n, vector_sum(vectors))
+
+def sum_of_squares(v):
+    """ v_1 * v_1 + ... + v_n * v_n """
+    return dot(v,v)
+
+def magnitude(v):
+    return math.sqrt(sum_of_squares(v))
+
+
+def squared_distance(v,w):
+    """ (v_1-w1)**2 + ... + (v_n - w_n)**2 """
+    return sum_of_squares(vector_subtract(v,w))
+
+def distance(v,w):
+    return math.sqrt(vector_subtract(v,w))
+
+def shape(A):
+    num_rows = len(A)
+    num_cols = len(A[0]) if A else 0
+    return num_rows, num_cols
+
+def get_row(A,i):
+    return A[i]
+
+def get_column(A,j):
+    return [A_i[j] for A_i in A]
+
+def make_matrix(num_rows, num_cols, entry_fn):
+    return [[entry_fn(i,j) for j in range(num_cols)] for i in range(num_rows)]
+
+def is_diagonal(i,j):
+    return 1 if i == j else 0
+
+
+### Statistics ###
+
+
+
+### Probability ####
+
+
+
+### Machine Learning ###
+
+
 
