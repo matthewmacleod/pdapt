@@ -9,4 +9,4 @@ print('using python version = ')
 print(sys.version)
 
 
-print maths.vector_add([1,1,1],[1,2,3])
+print(maths.vector_add([1,1,1],[1,2,3]))

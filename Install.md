@@ -22,5 +22,14 @@ document requirements
     ./bin/pip3 freeze > requirements.txt
 
 
+mkdir doc
+../bin/sphinx-quickstart
+[add autodocumentation]
 
+Edit conf.py to specify sys.path: sys.path.insert(0, os.path.abspath('..'))
 
+../bin/sphinx-apidoc -o . ..
+
+make html
+
+firefox _build/html/index.html
