@@ -48,6 +48,8 @@ Additional packages
 
       ./bin/easy_install ipython
 
+      ./bin/easy_install "ipython[notebook]"
+
       ./bin/easy_install numpy
 
       ./bin/easy_install scipy

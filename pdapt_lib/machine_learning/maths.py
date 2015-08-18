@@ -1,5 +1,4 @@
 import math, sys, os
-
 """ Maths module
     basic linear algebra
     statistics
@@ -7,7 +6,17 @@ import math, sys, os
     machine learning
 """
 
-import math
+
+def factorial(n, acc=1):
+    """ simple factorial
+    Args: just n as using default args for accumulator.
+    here's a doc test:
+    >>> factorial(5)
+    120
+    """
+    if n == 1: return acc
+    else: return factorial(n-1, n*acc)
+
 
 def test_func(x):
     """This function will try to calculate:
@@ -93,4 +102,9 @@ def is_diagonal(i,j):
 ### Machine Learning ###
 
 
+### run doctests ###
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 

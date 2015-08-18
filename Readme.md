@@ -24,6 +24,9 @@ Testing
 
      python -m unittest discover pdapt_lib 'test_*.py'
 
+to run doc tests:
+
+    python -m doctest -v pdapt_lib/machine_learning/maths.py
 
 Documentation
 ---------------

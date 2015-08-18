@@ -8,3 +8,6 @@ class TestSpectra(unittest.TestCase):
 
     def test_vector_subtract(self):
        self.assertEqual(maths.vector_subtract([1,2,3],[1,2,3]), [0,0,0])
+
+    def test_factorial(self):
+       self.assertEqual(maths.factorial(5), 120)
