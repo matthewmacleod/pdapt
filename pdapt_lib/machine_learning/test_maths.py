@@ -1,5 +1,5 @@
 import unittest
-import maths
+import pdapt_lib.machine_learning.maths as maths
 
 class TestSpectra(unittest.TestCase):
 

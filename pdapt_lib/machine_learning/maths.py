@@ -1,37 +1,14 @@
 import math, sys, os
+
+from pdapt_lib.basics.tco import TailCaller, TailCall, tailcall
+
+
 """ Maths module
     basic linear algebra
     statistics
     probability
     machine learning
 """
-
-
-class TailCaller(object):
-    def __init__(self, f):
-       self.f = f
-    def __call__(self, *args, **kwargs):
-       ret = self.f(*args, **kwargs)
-       while type(ret) is TailCall:
-          ret = ret.handle()
-       return ret
-
-
-class TailCall(object):
-    def __init__(self, call, *args, **kwargs) :
-       self.call = call
-       self.args = args
-       self.kwargs = kwargs
-    def handle(self) :
-       if type(self.call) is TailCaller :
-          return self.call.f(*self.args, **self.kwargs)
-       else :
-          return self.call(*self.args, **self.kwargs)
-
-def tailcall(f) :
-    def _f(*args, **kwargs) :
-        return TailCall(f, *args, **kwargs)
-    return _f
 
 
 @TailCaller
@@ -58,7 +35,11 @@ def test_func(x):
 
 
 def vector_add(v,w):
-    """ add corresponding elements """
+    """ add corresponding elements
+    # example:
+    >>> vector_add([1,2,3],[1,2,3])
+    [2, 4, 6]
+    """
     return [v_i + w_i for v_i, w_i in zip(v,w)]
 
 def vector_subtract(v,w):
@@ -117,6 +98,9 @@ def make_matrix(num_rows, num_cols, entry_fn):
 
 def is_diagonal(i,j):
     return 1 if i == j else 0
+
+## geometry specific stuff ##
+
 
 
 ### Statistics ###

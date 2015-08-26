@@ -64,6 +64,8 @@ Additional packages
 
       ./bin/easy_install pep8
 
+      ./bin/pip install seaborn
+
 
 
 Addition packages for cross-checking code
