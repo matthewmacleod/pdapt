@@ -2,6 +2,8 @@ import math, sys, os
 
 from pdapt_lib.basics.tco import TailCaller, TailCall, tailcall
 
+import numpy as np
+
 
 """ Maths module
     basic linear algebra
@@ -59,7 +61,12 @@ def vector_sum(vectors):
     return reduce(vector_add, vectors)
 
 def scalar_multiply(c, v):
-    return map(lambda x: c*x, v)
+    """ scale each component of vector
+    # example
+    >>> scalar_multiply(10.0, [1,2,3])
+    [10.0, 20.0, 30.0]
+    """
+    return list(map(lambda x: c*x, v))
 
 def vector_mean(vectors):
     """ compute the vector whose ith element is mean of the
@@ -101,7 +108,45 @@ def is_diagonal(i,j):
 
 ## geometry specific stuff ##
 
+# function distance will work for points
 
+def angle(v,w):
+    return math.acos( dot(v,w)/(magnitude(v)*magnitude(w)) ) * 180.0/math.pi
+
+def point_angle(a, b, c):
+    """ a b c are xyz points, in degrees
+    # example:
+    >>> point_angle([-2.975941,3.026175,-1.069039],[-3.318522,2.808196,0.810145],[-3.627889,4.656182,1.240712])
+    97.96661349764267
+    """
+    ba = vector_subtract(a,b) # vector pointing from b to a is a-b
+    bc = vector_subtract(c,b) # vector pointing from b to c is c-b
+    return angle(ba,bc)
+
+def cross(v,w):
+    a = np.array(v)
+    b = np.array(w)
+    return np.cross(a,b)
+
+def dihedral(a, b, c, d):
+   """  get dihedral angle in degrees from points
+   # example:
+   >>> dihedral([-2.975941,3.026175,-1.069039],[-3.318522,2.808196,0.810145],[-3.627889,4.656182,1.240712],[-4.122107,4.795455,2.203724])
+   163.75385970522458
+   """
+   # vectors connecting points
+   v1 = vector_subtract(b,a)
+   v2 = vector_subtract(b,c) # notice the direction is from c to b
+   v3 = vector_subtract(d,c)
+   # form normals
+   n1 = cross(v1,v2) / magnitude(cross(v1,v2))
+   n2 = cross(v2,v3) / magnitude(cross(v2,v3))
+   # form orthogonal frame
+   x = dot(n1,n2)
+   v2n = scalar_multiply(1.0/magnitude(v2),v2)
+   m1 = cross(n1,v2n)
+   y = dot(m1,n2)
+   return math.atan2(y,x) * 180.0/math.pi
 
 ### Statistics ###
 
