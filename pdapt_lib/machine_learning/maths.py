@@ -7,7 +7,9 @@ import numpy as np
 
 """ Maths module
     basic linear algebra
-    statistics
+      vector
+      matrix
+
     probability
     machine learning
 """

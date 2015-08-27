@@ -27,6 +27,7 @@ Testing
 to run doc tests:
 
     python -m doctest -v pdapt_lib/machine_learning/maths.py
+    python -m doctest -v pdapt_lib/machine_learning/stats.py
 
 Documentation
 ---------------
