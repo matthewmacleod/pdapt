@@ -37,6 +37,13 @@ def quantile(x,p):
     pth_index = int(p*len(x))-1
     return sorted(x)[pth_index]
 
+def interquartile_range(x):
+    """ this is Q3-Q1, hinges on box plots are 1.5 x this amount
+    >>> interquartile_range([1,2,3,4,5,6,7,8,9,10])
+    5
+    """
+    return quantile(x,0.75) - quantile(x,0.25)
+
 def mode(x):
     """ most common value
     todo this probably could be faster
@@ -74,8 +81,13 @@ def variance(x):
     >>> variance([1,2,3,4,5,6])
     3.5
     """
+    n = len(x)
     deviations = from_mean(x)
-    return sum_of_squares(deviations) / (len(x)-1)
+    # note that almost average squared deviation from mean, but dont divide by
+    # n but n-1 this is because x_bar is only an estimate since assuming are sampling
+    # from a larger population so the squared deviations are an underestimate thus correct
+    # for this by dividing by n-1 instead of n
+    return sum_of_squares(deviations) / (n-1)
 
 def covariance(x,y):
     """ measure dispersion in another way

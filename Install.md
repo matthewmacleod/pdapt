@@ -76,4 +76,9 @@ Addition packages for cross-checking code
 
       ./bin/easy_install scikit-learn
 
+      ./bin/pip install Statsmodels
+
+      ./bin/pip install theano patsy
+
+      ./bin/pip install git+https://github.com/pymc-devs/pymc3
 
