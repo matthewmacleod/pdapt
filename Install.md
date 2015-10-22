@@ -78,7 +78,29 @@ Addition packages for cross-checking code
 
       ./bin/pip install Statsmodels
 
-      ./bin/pip install theano patsy
+      ./bin/pip install patsy
 
       ./bin/pip install git+https://github.com/pymc-devs/pymc3
+
+      ./bin/pip install rpy2
+
+      ./bin/pip install theano pyyaml h5py cuDNN
+
+      ./bin/pip install keras
+
+      ./bin/pip install lasagne
+
+      ./bin/pip uninstall nolearn
+
+      ./bin/pip install  https://github.com/dnouri/nolearn/archive/master.zip#egg=nolearn
+
+      ./bin/pip install py4j
+
+      ./bin/pip install beautifulsoup4 requests python-dateutil twython scrapy
+
+      ./bin/pip install gensim
+
+      ./bin/pip install crab
+
+
 
