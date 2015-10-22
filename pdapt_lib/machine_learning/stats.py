@@ -111,7 +111,26 @@ def correlation(x,y):
     else:
         return 0
 
+def outliers(x):
+    """ ouliers are defined as +- 1.5 x IQR """
+    iqr = interquartile_range(x)
+    min_x = median(x) - 1.5 * iqr
+    max_x = median(x) + 1.5 * iqr
+    return [ i for i in x if i < min_x or i > max_x]
 
+def summary(x):
+    """
+    print out summary statistics
+    for now set up to work on a list x
+    """
+    print('{0:10} {1:5f}'.format('Minimum:', min(x)))
+    print('{0:10} {1:5f}'.format('Q1:', quantile(x,0.25)))
+    print('{0:10} {1:5f}'.format('median:', median(x)))
+    print('{0:10} {1:5f}'.format('mean:', mean(x)))
+    print('{0:10} {1:5f}'.format('Q3:', quantile(x,0.75)))
+    print('{0:10} {1:5f}'.format('Maximum:', max(x)))
+    print('{0:10} {1:5f}'.format('Std dev:', standard_deviation(x)))
+    print('Outliers +/- 1.5 IQR:', outliers(x))
 
 
 

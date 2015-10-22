@@ -50,14 +50,17 @@ def vector_subtract(v,w):
     """ subtract corresponding elements """
     return [v_i - w_i for v_i, w_i in zip(v,w)]
 
-def dot(v,w):
+def dot(a,b):
     """ Dot product aka inner product
 
     .. math::
-            \Gamma(z) = \int_0^\infty x^{z-1}e^{-x}\,dx
+            \mathbf{A} \cdot \mathbf{B} = A^\dag B = \sum_i^n A_i * B_i
 
+    # Doctest Example:
+    >>> dot([0,2.0,4],[0,1,1])
+    6.0
     """
-    return sum(v_i * w_i for v_i, w_i in zip(v, w))
+    return sum(a_i * b_i for a_i, b_i in zip(a, b))
 
 def vector_sum(vectors):
     return reduce(vector_add, vectors)
