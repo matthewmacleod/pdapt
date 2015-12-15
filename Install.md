@@ -84,6 +84,8 @@ Addition packages for cross-checking code
 
       ./bin/pip install rpy2
 
+ann
+
       ./bin/pip install theano pyyaml h5py cuDNN
 
       ./bin/pip install keras
@@ -96,11 +98,20 @@ Addition packages for cross-checking code
 
       ./bin/pip install py4j
 
+webscraping, nlp
+
       ./bin/pip install beautifulsoup4 requests python-dateutil twython scrapy
 
       ./bin/pip install gensim
 
+      ./bin/pip install nltk
+
       ./bin/pip install crab
 
+financial
+
+      ./bin/pip install zipline
+
+      ./bin/pip install Quandl
 
 

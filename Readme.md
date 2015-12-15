@@ -1,30 +1,43 @@
 Pdapt
 ==============================
 
-python machine learning suite coded from scratch
+Pdpat is a Python 3 machine learning suite coded from scratch.
+
+The main purpose is to implement simple algorithms in order to
+prototype new models and ideas.
+
+pdapt is not intended to be a massively distributed real-time solution.
 
 
-Using virtualenv
+Installation
+-----------------
 
-       source/bin/activate
+see file:
+
+  Install.md
+
+after install, activate like so:
+
+        . bin/activate
+
 
 to deactivate environment
 
         deactivate
 
 
-Run
+Running
 -----------------
 
-     python main.py
+    python main.py
 
 
 Testing
 -----------------
 
-     python -m unittest discover pdapt_lib 'test_*.py'
+    python -m unittest discover pdapt_lib 'test_*.py'
 
-to run doc tests:
+To run doc tests, pick a module:
 
     python -m doctest -v pdapt_lib/machine_learning/maths.py
 
@@ -40,4 +53,12 @@ Documentation
       make html
 
       firefox _build/html/index.html
+
+
+License
+---------------
+
+see license.txt file for this
+
+
 
