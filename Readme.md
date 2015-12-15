@@ -21,7 +21,7 @@ after install, activate like so:
         . bin/activate
 
 
-to deactivate environment
+to deactivate environment:
 
         deactivate
 
