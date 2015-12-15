@@ -118,6 +118,20 @@ def outliers(x):
     max_x = median(x) + 1.5 * iqr
     return [ i for i in x if i < min_x or i > max_x]
 
+def standardize(x):
+    """
+    standardize a vector
+    """
+    m = mean(x)
+    s = standard_deviation(x)
+    return [(i-m)/s for i in x]
+
+def unstandardize(z,m,s):
+    """
+    return original vector
+    """
+    return [i*s+m for i in z]
+
 def summary(x):
     """
     print out summary statistics
@@ -125,12 +139,14 @@ def summary(x):
     """
     print('{0:10} {1:5f}'.format('Minimum:', min(x)))
     print('{0:10} {1:5f}'.format('Q1:', quantile(x,0.25)))
-    print('{0:10} {1:5f}'.format('median:', median(x)))
-    print('{0:10} {1:5f}'.format('mean:', mean(x)))
+    print('{0:10} {1:5f}'.format('Median:', median(x)))
     print('{0:10} {1:5f}'.format('Q3:', quantile(x,0.75)))
     print('{0:10} {1:5f}'.format('Maximum:', max(x)))
-    print('{0:10} {1:5f}'.format('Std dev:', standard_deviation(x)))
+    print('{0:10} {1:5f}'.format('IQR:', interquartile_range(x)))
     print('Outliers +/- 1.5 IQR:', outliers(x))
+    print()
+    print('{0:10} {1:5f}'.format('Mean:', mean(x)))
+    print('{0:10} {1:5f}'.format('Std dev:', standard_deviation(x)))
 
 
 
