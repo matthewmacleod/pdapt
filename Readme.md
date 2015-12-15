@@ -47,6 +47,10 @@ To run doc tests, pick a module:
 
     python -m doctest -v pdapt_lib/machine_learning/cross_validation.py
 
+    python -m doctest -v pdapt_lib/machine_learning/optimize.py
+
+    python -m doctest -v pdapt_lib/machine_learning/regression.py
+
 Documentation
 ---------------
 
