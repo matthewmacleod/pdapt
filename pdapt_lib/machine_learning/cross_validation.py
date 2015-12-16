@@ -4,6 +4,7 @@ various routines for splitting up the data set
 
 """
 import math, random
+import numpy as np
 
 def create_data_partition(data, fraction):
     """ input data vector, fraction (eg 0.75)
@@ -14,6 +15,24 @@ def create_data_partition(data, fraction):
     """
     p_index = round(fraction*len(data))
     training, testing = data[0:p_index], data[p_index:]
+    return training, testing
+
+
+def random_split(data, fraction):
+    """ input data vector, fraction (eg 0.75)
+    here we split on fraction but the data for training
+    and test splits will be selected at random.
+    """
+    train_size = round(fraction*len(data))
+    length = len(data)
+    all_indices = np.array(range(length))
+    train_indices = np.random.choice(all_indices, size=train_size, replace=False)
+    training, testing = [],[]
+    for i in all_indices:
+        if i in train_indices:
+            training.append(data[i])
+        else:
+            testing.append(data[i])
     return training, testing
 
 
