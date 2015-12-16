@@ -39,7 +39,8 @@ def random_split(data, fraction):
     here we split on fraction but the data for training
     and test splits will be selected at random.
     output: train, test, train_indices
-    train indices are also included in output for more complicated splits
+    NB 1: train indices are also included in output for more complicated splits
+    NB 2: for more splits, simply call multiple times
     """
     train_size = round(fraction*len(data))
     length = len(data)
