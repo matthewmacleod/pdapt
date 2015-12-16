@@ -40,7 +40,9 @@ def random_split(data, fraction):
     and test splits will be selected at random.
     output: train, test, train_indices
     NB 1: train indices are also included in output for more complicated splits
-    NB 2: for more splits, simply call multiple times
+    NB 2: for more splits, simply call multiple times, eg
+       training_and_validation, testing = random_split(data, 0.9)
+       training, validation = random_split(training_and_validation, 0.5)
     """
     train_size = round(fraction*len(data))
     length = len(data)
