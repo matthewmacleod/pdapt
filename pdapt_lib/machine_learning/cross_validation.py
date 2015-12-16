@@ -6,11 +6,12 @@ various routines for splitting up the data set
 import math, random
 import numpy as np
 
-def create_data_partition(data, fraction):
-    """ input data vector, fraction (eg 0.75)
+def create_train_test_partition(data, fraction):
+    """ input: data vector, fraction (eg 0.75)
      where fraction represents the amount to allocate
      to the training set.
-    >>> create_data_partition([1,2,3,4,5,6,7,8,9,10],.8)
+    output: train, test
+    >>> create_train_test_partition([1,2,3,4,5,6,7,8,9,10],.8)
     ([1, 2, 3, 4, 5, 6, 7, 8], [9, 10])
     """
     p_index = round(fraction*len(data))
@@ -18,10 +19,27 @@ def create_data_partition(data, fraction):
     return training, testing
 
 
+def create_train_validation_test_partition(data, train_fraction, test_fraction):
+    """ input: data vector, train fraction (eg 0.80), test fraction (eg 0.10)
+     where fraction represents the amount to allocate
+     to the training set.
+    output: train, validation, test
+    >>> create_train_validation_test_partition([1,2,3,4,5,6,7,8,9,10],.8,.1)
+    ([1, 2, 3, 4, 5, 6, 7, 8], [9], [10])
+    """
+    train_index = round(train_fraction*len(data))
+    test_index = round((1.0-test_fraction)*len(data))
+    train, validation, test = data[0:train_index], data[train_index:test_index], data[test_index:]
+    return train, validation, test
+
+
+
 def random_split(data, fraction):
-    """ input data vector, fraction (eg 0.75)
+    """ input: data vector, fraction (eg 0.75)
     here we split on fraction but the data for training
     and test splits will be selected at random.
+    output: train, test, train_indices
+    train indices are also included in output for more complicated splits
     """
     train_size = round(fraction*len(data))
     length = len(data)
@@ -33,6 +51,6 @@ def random_split(data, fraction):
             training.append(data[i])
         else:
             testing.append(data[i])
-    return training, testing
+    return training, testing, train_indices
 
 
