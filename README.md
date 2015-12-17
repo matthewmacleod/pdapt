@@ -1,7 +1,7 @@
 pdapt
 ==============================
 
-pdpat is a Python 3 machine learning suite coded from scratch.
+pdapt is a Python 3 machine learning suite coded from scratch.
 
 The main purpose is to implement simple algorithms in order to
 *prototype new models and ideas*.
