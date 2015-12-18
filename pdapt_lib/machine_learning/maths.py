@@ -91,7 +91,13 @@ def squared_distance(v,w):
     return sum_of_squares(vector_subtract(v,w))
 
 
-def distance(v,w): return math.sqrt(vector_subtract(v,w))
+def distance(v,w):
+    """
+    >>> distance([1.2, 2.2, 3.8], [1.0, 2.0, 8.8])
+    5.007993610219566
+    """
+    diff = vector_subtract(v,w)
+    return magnitude(diff)
 
 
 def shape(A):
@@ -158,18 +164,6 @@ def dihedral(a, b, c, d):
    y = dot(m1,n2)
    return math.atan2(y,x) * 180.0/math.pi
 
-### Statistics ###
-
-
-
-### Probability ####
-
-
-
-### Machine Learning ###
-
-
-### run doctests ###
 
 if __name__ == "__main__":
     import doctest
