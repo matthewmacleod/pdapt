@@ -7,13 +7,9 @@ import numpy as np
 
 """ Maths module
     basic linear algebra
-      vector
-      matrix
-
-    probability
-    machine learning
+     vector
+     matrix
 """
-
 
 @TailCaller
 def factorial(n, acc=1):
@@ -25,17 +21,6 @@ def factorial(n, acc=1):
     """
     if n == 1: return acc
     else: return tailcall(factorial)(n-1, n*acc)
-
-
-def test_func(x):
-    """This function will try to calculate:
-
-    .. math::
-              \sum_{i=1}^{\\infty} x_{i}
-
-    good luck!
-    """
-    pass
 
 
 def vector_add(v,w):
