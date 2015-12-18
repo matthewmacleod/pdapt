@@ -83,7 +83,9 @@ def sum_of_squares(v):
     return dot(v,v)
 
 
-def magnitude(v): return math.sqrt(sum_of_squares(v))
+def magnitude(v):
+    """ this is the l2 norm """
+    return math.sqrt(sum_of_squares(v))
 
 
 def squared_distance(v,w):
