@@ -87,6 +87,21 @@ def magnitude(v):
     """ this is the l2 norm """
     return math.sqrt(sum_of_squares(v))
 
+def lp_norm(v,p):
+    """ l_p norm
+    input: vector, p (order of the norm)
+    output: norm
+    >>> lp_norm(range(1,11),2)
+    19.621416870348583
+    >>> lp_norm(list(map(lambda x: abs(x),list(range(1,11)))),1)
+    55.0
+    >>> lp_norm(range(1,11),1)
+    55.0
+    >>> lp_norm(range(1,11),0.5)
+    504.82352465265495
+    """
+    return (sum(map(lambda x: abs(x)**p,v)))**(1.0/p)
+
 
 def squared_distance(v,w):
     """ (v_1-w1)**2 + ... + (v_n - w_n)**2 """
