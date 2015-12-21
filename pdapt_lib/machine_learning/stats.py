@@ -144,19 +144,10 @@ def winsorise(v, limit):
     55.65
     """
     vs = sorted(v)
-    lower = limit
-    upper = 1.0-lower
-    low_quantile_limit, upper_quantile_limit  = quantile(vs,lower), quantile(vs,upper)
-    lower_replacement, upper_replacement = 0.0, 0.0
-    lower_found, upper_found = False, False
-    for i, value in enumerate(vs):
-        if lower_found == False and value > low_quantile_limit:
-            lower_replacement = value
-            lower_found = True
-        elif upper_found == False and value > upper_quantile_limit:
-            upper_replacement = vs[i-1]
-            upper_found = True
-    w = [] # winsorized vector
+    low_quantile_limit, upper_quantile_limit  = quantile(vs,limit), quantile(vs,1.0-limit)
+    lower_replacement = vs[vs.index(low_quantile_limit)+1]
+    upper_replacement = vs[vs.index(upper_quantile_limit)]
+    w = []
     for i in v:
         if i < lower_replacement:
             w.append(lower_replacement)
