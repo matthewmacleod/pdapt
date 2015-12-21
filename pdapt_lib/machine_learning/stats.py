@@ -132,15 +132,15 @@ def unstandardize(z,m,s):
     """
     return [i*s+m for i in z]
 
-def winsorize(v, limit):
+def winsorise(v, limit):
     """ https://en.wikipedia.org/wiki/Winsorising
     input: v (vector), limit is percent cutoff on edges of distribution ..to reduce *possible* spurious effects of outliers
     output: winsorized vector (same length but outliers have been replaced with closest values
     NB a 0.05 percent limit would alter 10% of the data
     NB sometimes outliers should not be removed!
-    >>> winsorize([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], 0.05)
+    >>> winsorise([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], 0.05)
     [92, 19, 101, 58, 101, 91, 26, 78, 10, 13, -5, 101, 86, 85, 15, 89, 89, 28, -5, 41]
-    >>> mean(winsorize([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], 0.05))
+    >>> mean(winsorise([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], 0.05))
     55.65
     """
     vs = sorted(v)
