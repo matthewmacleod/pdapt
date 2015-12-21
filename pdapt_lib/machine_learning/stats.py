@@ -132,6 +132,40 @@ def unstandardize(z,m,s):
     """
     return [i*s+m for i in z]
 
+def winsorize(v, limit):
+    """ https://en.wikipedia.org/wiki/Winsorising
+    input: v (vector), limit is percent cutoff on edges of distribution ..to reduce *possible* spurious effects of outliers
+    output: winsorized vector (same length but outliers have been replaced with closest values
+    NB a 0.05 percent limit would alter 10% of the data
+    NB sometimes outliers should not be removed!
+    >>> winsorize([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], 0.05)
+    [92, 19, 101, 58, 101, 91, 26, 78, 10, 13, -5, 101, 86, 85, 15, 89, 89, 28, -5, 41]
+    >>> mean(winsorize([92, 19, 101, 58, 1053, 91, 26, 78, 10, 13, -40, 101, 86, 85, 15, 89, 89, 28, -5, 41], 0.05))
+    55.65
+    """
+    vs = sorted(v)
+    lower = limit
+    upper = 1.0-lower
+    low_quantile_limit, upper_quantile_limit  = quantile(vs,lower), quantile(vs,upper)
+    lower_replacement, upper_replacement = 0.0, 0.0
+    lower_found, upper_found = False, False
+    for i, value in enumerate(vs):
+        if lower_found == False and value > low_quantile_limit:
+            lower_replacement = value
+            lower_found = True
+        elif upper_found == False and value > upper_quantile_limit:
+            upper_replacement = vs[i-1]
+            upper_found = True
+    w = [] # winsorized vector
+    for i in v:
+        if i < lower_replacement:
+            w.append(lower_replacement)
+        elif i > upper_replacement:
+            w.append(upper_replacement)
+        else:
+            w.append(i)
+    return w
+
 def summary(x):
     """
     print out summary statistics

@@ -12,6 +12,7 @@ def tail(it):
 def take(n, it):
     return [x for x in islice(it, n)]
 
+# nb can use a.remove(item)
 def drop(n, it):
     return islice(it, n, None)
 
