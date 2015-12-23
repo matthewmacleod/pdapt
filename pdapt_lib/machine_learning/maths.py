@@ -91,6 +91,8 @@ def lp_norm(v,p):
     """ l_p norm
     input: vector, p (order of the norm)
     output: norm
+    NB for more info see
+    https://en.wikipedia.org/wiki/Lp_space
     >>> lp_norm(range(1,11),2)
     19.621416870348583
     >>> lp_norm(list(map(lambda x: abs(x),list(range(1,11)))),1)
