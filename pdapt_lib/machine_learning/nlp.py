@@ -28,6 +28,7 @@ def expand(s):
     s = re.sub(r'\'twas', 'it was',s)
     s = re.sub(r'let\'s', 'let us', s)
     s = re.sub(r'shan\'t', 'shall not', s)
+    s = re.sub(r'G\'day', 'Good day', s)
     # since can be possesive cant make this general
     s = re.sub(r'who\'s', 'who is',s)
     s = re.sub(r'where\'s', 'where is',s)
@@ -51,7 +52,7 @@ def lowercase(s):
     >>> lowercase("This is a NLP test.")
     'this is a NLP test.'
     """
-    s = re.sub(r'(?<=[A-Z])\.', '', s)
+    s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
     return s
 
