@@ -7,6 +7,8 @@ basic natural language processing code
 from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial
 import re
 
+# processing
+
 def expand(s):
     """ expand common contractions
     input: string
@@ -49,12 +51,28 @@ def lowercase(s):
     input: text string
     output: text but special lowercased version
     NB U.S. will be converted to US and not us (ambiguous)
+       Also will leave ALL capitalization, want this since
+       associated with emphasis
     >>> lowercase("This is a NLP test.")
     'this is a NLP test.'
     """
     s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
     return s
+
+def remove_numbers(s):
+    """ remove numbers in string
+    input: string text
+    output: string text without numbers
+    NB want to keep numbers associated with letters since
+    they can be part of an abbreviation or name
+    >>> remove_numbers("A sentence with some1 55 items.")
+    'A sentence with some1 items.'
+    """
+    s = re.sub(r"^\d+\s|\s\d+\s|\s\d+$", " ", s)
+    return s
+
+# Models
 
 def n_gram(n, words):
     """ n gram model
