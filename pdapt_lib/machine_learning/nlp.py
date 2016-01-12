@@ -78,6 +78,16 @@ def remove_numbers(s):
     'A positive1 4float test.'
     >>> remove_numbers("A 1 2 3 test.")
     'A test.'
+    >>> remove_numbers("A floating point at the end 123.4.")
+    'A floating point at the end '
+    >>> remove_numbers("Another floating point at the end 123.4)")
+    'Another floating point at the end '
+    >>> remove_numbers("Another floating point at the end 123.4]")
+    'Another floating point at the end '
+    >>> remove_numbers("Another floating point at the end 123.4!")
+    'Another floating point at the end '
+    >>> remove_numbers("Another floating point at the end 123.4}")
+    'Another floating point at the end '
     """
     s = re.sub(r"(\s\d+\s)+", " ",s)
     s = re.sub(r"^\d+\s", " ", s)
@@ -86,6 +96,7 @@ def remove_numbers(s):
     s = re.sub(r"\s[-]\d+\s", " ", s)
     s = re.sub(r"[-].\d.\.\d+", " ", s)
     s = re.sub(r"\s\d+\.\d+\s", " ", s)
+    s = re.sub(r"\s\d+\.\d+?[\.\)\]\!\}]", " ", s)
     return s
 
 # Models
