@@ -31,5 +31,5 @@ def skip_gram(k, n, words):
     >>> skip_gram(2, 2, "the rain in Spain falls mainly on the plain".split(" "))
     [['the', 'Spain'], ['rain', 'falls'], ['in', 'mainly'], ['Spain', 'on'], ['falls', 'the'], ['mainly', 'plain']]
     """
-    sgrams = [list([words[i]]) + [words[i+k+j] for j in range(1,n+1,2)] for i in range(len(words)-(k*2*(n-1)))]
+    sgrams = [list([words[i]]) + [words[i+k+j] for j in range(1,n+1,2)] for i in range(len(words)-((1+k)*(n-1)))]
     return sgrams
