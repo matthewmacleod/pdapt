@@ -24,12 +24,15 @@ def skip_gram(k, n, words):
     """ skip grams
     input: k (skip), n (as in n-gram), list of words
     output: list of skip grams
+    NB this is a bit trickier to do in one line...
     >>> skip_gram(1, 2, "the rain in Spain falls mainly on the plain".split(" "))
     [['the', 'in'], ['rain', 'Spain'], ['in', 'falls'], ['Spain', 'mainly'], ['falls', 'on'], ['mainly', 'the'], ['on', 'plain']]
     >>> skip_gram(1, 3, "the rain in Spain falls mainly on the plain".split(" "))
     [['the', 'in', 'falls'], ['rain', 'Spain', 'mainly'], ['in', 'falls', 'on'], ['Spain', 'mainly', 'the'], ['falls', 'on', 'plain']]
     >>> skip_gram(2, 2, "the rain in Spain falls mainly on the plain".split(" "))
     [['the', 'Spain'], ['rain', 'falls'], ['in', 'mainly'], ['Spain', 'on'], ['falls', 'the'], ['mainly', 'plain']]
+    >>> skip_gram(2, 3, "the rain in Spain falls mainly on the plain".split(" "))
+    [['the', 'Spain', 'on'], ['rain', 'falls', 'the'], ['in', 'mainly', 'plain']]
     """
-    sgrams = [list([words[i]]) + [words[i+k+j] for j in range(1,n+1,2)] for i in range(len(words)-((1+k)*(n-1)))]
+    sgrams = [list([words[i]]) + [words[i+k+j] for j in range(1,n+k,k+1)] for i in range(len(words)-((1+k)*(n-1)))]
     return sgrams
