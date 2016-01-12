@@ -43,6 +43,17 @@ def expand(s):
     s = re.sub(r'ain\'t', 'am not', s)
     return s
 
+def lowercase(s):
+    """ return lowercased text EXCEPT for abbreviations
+    input: text string
+    output: text but special lowercased version
+    NB U.S. will be converted to US and not us (ambiguous)
+    >>> lowercase("This is a NLP test.")
+    'this is a NLP test.'
+    """
+    s = re.sub(r'(?<=[A-Z])\.', '', s)
+    s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
+    return s
 
 def n_gram(n, words):
     """ n gram model
