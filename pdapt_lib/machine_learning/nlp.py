@@ -76,7 +76,10 @@ def remove_numbers(s):
     'A negative float   test.'
     >>> remove_numbers("A positive1 4float 123.0 test.")
     'A positive1 4float test.'
+    >>> remove_numbers("A 1 2 3 test.")
+    'A test.'
     """
+    s = re.sub(r"(\s\d+\s)+", " ",s)
     s = re.sub(r"^\d+\s", " ", s)
     s = re.sub(r"\s\d+\s", " ", s)
     s = re.sub(r"\s\d+$", " ", s)
