@@ -2,8 +2,46 @@
 
 basic natural language processing code
 
+
 """
 from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial
+import re
+
+def expand(s):
+    """ expand common contractions
+    input: string
+    output: string with contractions expanded
+    >>> expand("It's cold out")
+    'it is cold out'
+    >>> expand("I've been busy")
+    'I have been busy'
+    >>> expand("you're going to be amazed")
+    'you are going to be amazed'
+    """
+    s = re.sub(r'[Ii]t\'s', 'it is', s) # this will remove capitalized I
+    s = re.sub(r'\'ve', ' have', s)
+    s = re.sub(r'n\'t', ' not',s)
+    s = re.sub(r'\'ll', ' will',s)
+    s = re.sub(r'\'m', ' am', s)
+    s = re.sub(r'\'re', ' are', s)
+    s = re.sub(r'\'tis', 'it is',s)
+    s = re.sub(r'\'twas', 'it was',s)
+    s = re.sub(r'let\'s', 'let us', s)
+    s = re.sub(r'shan\'t', 'shall not', s)
+    # since can be possesive cant make this general
+    s = re.sub(r'who\'s', 'who is',s)
+    s = re.sub(r'where\'s', 'where is',s)
+    s = re.sub(r'what\'s', 'what is',s)
+    s = re.sub(r'why\'s', 'why is',s)
+    s = re.sub(r'that\'s', 'that is',s)
+    s = re.sub(r'there\'s', 'there is', s)
+    s = re.sub(r'someone\'s', 'someone is',s)
+    s = re.sub(r'somebody\'s', 'somebody is',s)
+    s = re.sub(r'something\'s', 'something is',s)
+    s = re.sub(r'he\'s', 'he is',s) # this could be dangerous
+    s = re.sub(r'o\'clock', 'of the clock',s)
+    s = re.sub(r'ain\'t', 'am not', s)
+    return s
 
 
 def n_gram(n, words):
