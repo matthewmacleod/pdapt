@@ -68,8 +68,21 @@ def remove_numbers(s):
     they can be part of an abbreviation or name
     >>> remove_numbers("A sentence with some1 55 items.")
     'A sentence with some1 items.'
+    >>> remove_numbers("123 test.")
+    ' test.'
+    >>> remove_numbers("A negative int -123 test.")
+    'A negative int test.'
+    >>> remove_numbers("A negative float -123.0 test.")
+    'A negative float   test.'
+    >>> remove_numbers("A positive1 4float 123.0 test.")
+    'A positive1 4float test.'
     """
-    s = re.sub(r"^\d+\s|\s\d+\s|\s\d+$", " ", s)
+    s = re.sub(r"^\d+\s", " ", s)
+    s = re.sub(r"\s\d+\s", " ", s)
+    s = re.sub(r"\s\d+$", " ", s)
+    s = re.sub(r"\s[-]\d+\s", " ", s)
+    s = re.sub(r"[-].\d.\.\d+", " ", s)
+    s = re.sub(r"\s\d+\.\d+\s", " ", s)
     return s
 
 # Models
