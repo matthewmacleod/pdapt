@@ -46,18 +46,27 @@ def expand(s):
     s = re.sub(r'ain\'t', 'am not', s)
     return s
 
+def standardize_abbreviations(s):
+    """ want to retain abbreviations
+    input: string
+    output: string with reformated abbreviated
+    NB this is needed to get more accurate counts
+    NB U.S. will be converted to US and not us (ambiguous)
+    >>> standardize_abbreviations("The U.S. or U.S.A. test")
+    'The US or USA test'
+    """
+    s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
+    return s
 
 def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
     input: text string
     output: text but special lowercased version
-    NB U.S. will be converted to US and not us (ambiguous)
-       Also will leave ALL capitalization, want this since
+    NB will leave ALL capitalization, want this since
        associated with emphasis
     >>> lowercase("This is a NLP test.")
     'this is a NLP test.'
     """
-    s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
     return s
 
