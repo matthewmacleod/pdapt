@@ -81,7 +81,7 @@ def lowercase(s):
 def remove_numbers(s):
     """ remove numbers in string
     input: string text
-    output: string text without numbers
+    output: string text without *most* numbers
     NB want to keep numbers associated with letters since
     they can be part of an abbreviation or name
     >>> remove_numbers("A sentence with some1 55 items.")
