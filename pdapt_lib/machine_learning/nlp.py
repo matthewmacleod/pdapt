@@ -1,5 +1,4 @@
 """ NLP
-
 basic natural language processing code
 
 
@@ -20,7 +19,7 @@ def expand(s):
     >>> expand("you're going to be amazed")
     'you are going to be amazed'
     """
-    s = re.sub(r'[Ii]t\'s', 'it is', s) # this will remove capitalized I
+    s = re.sub(r'[Ii]t\'s', 'it is', s) # this will remove capitalized It
     s = re.sub(r'\'ve', ' have', s)
     s = re.sub(r'n\'t', ' not',s)
     s = re.sub(r'\'ll', ' will',s)
@@ -47,15 +46,23 @@ def expand(s):
     return s
 
 def standardize_abbreviations(s):
-    """ want to retain abbreviations
+    """ want to retain abbreviations, but a consistent set
     input: string
     output: string with reformated abbreviated
     NB this is needed to get more accurate counts
+       eg  biologists are sloppy with acronyms (see tests)
     NB U.S. will be converted to US and not us (ambiguous)
     >>> standardize_abbreviations("The U.S. or U.S.A. test")
     'The US or USA test'
+    >>> standardize_abbreviations("Test for dashes JAK-1")
+    'Test for dashes JAK1'
+    >>> standardize_abbreviations("Test for caps Jak-1")
+    'Test for caps JAK1'
     """
     s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
+    s = re.sub(r'(?<=[A-Z])\-', '', s)
+    s = re.sub(r'(?<=[A-Z][a-z].)\-', '', s)
+    s = re.sub(r'[A-Z][a-z].[0-9]+', lambda x: x.group().upper(), s)
     return s
 
 def lowercase(s):
