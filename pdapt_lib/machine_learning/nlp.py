@@ -46,6 +46,7 @@ def expand(s):
     s = re.sub(r'ain\'t', 'am not', s)
     return s
 
+
 def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
     input: text string
@@ -59,6 +60,7 @@ def lowercase(s):
     s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
     return s
+
 
 def remove_numbers(s):
     """ remove numbers in string
@@ -98,6 +100,22 @@ def remove_numbers(s):
     s = re.sub(r"\s\d+\.\d+\s", " ", s)
     s = re.sub(r"\s\d+\.\d+?[\.\)\]\!\}]", " ", s)
     return s
+
+
+def remove_punctuation(s):
+    """ remove punctionation
+    input: string text
+    output: string text with punctiontion removed
+    >>> remove_punctuation("A bit of marks # @ ! & * [] {}.")
+    'A bit of marks '
+    >>> remove_punctuation("Another test-for-you!")
+    'Another test for you '
+    """
+    s = re.sub(r'[^A-Za-z0-9]+', ' ', s)
+    return s
+
+
+
 
 # Models
 
