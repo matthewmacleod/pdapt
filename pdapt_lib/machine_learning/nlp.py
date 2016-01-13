@@ -61,8 +61,8 @@ def standardize_abbreviations(s):
     """
     s = re.sub(r'(?<=[A-Z])\.', '', s) # positive lookbehind assertion
     s = re.sub(r'(?<=[A-Z])\-', '', s)
-    s = re.sub(r'(?<=[A-Z][a-z].)\-', '', s)
-    s = re.sub(r'[A-Z][a-z].[0-9]+', lambda x: x.group().upper(), s)
+    s = re.sub(r'(?<=[a-z])\-', '', s)
+    s = re.sub(r'[A-Z]*[a-z]*[0-9]+', lambda x: x.group().upper(), s)
     return s
 
 def lowercase(s):
