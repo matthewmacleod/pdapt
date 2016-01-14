@@ -140,6 +140,8 @@ def tokenize(s,n=1):
     {'a': 2, 'simple': 1, 'VERSION1': 1, 'tokenizer': 1, 'of': 1}
     >>> tokenize("A simple version-2 of a tokenizer")
     {'a': 2, 'simple': 1, 'tokenizer': 1, 'VERSION2': 1, 'of': 1}
+    >>> tokenize("the rain in Spain falls mainly in Spain", 2)
+    {'the rain': 1, 'in spain': 2, 'rain in': 1, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1}
     """
     # NB the order of the following processing functions is important!
     s = expand(s)
@@ -168,6 +170,8 @@ def n_gram(n, s):
     NB to join sublists, [" ".join(i) for i in ngrams]
     >>> n_gram(2, "the rain in Spain falls mainly on the plain")
     ['the rain', 'rain in', 'in Spain', 'Spain falls', 'falls mainly', 'mainly on', 'on the', 'the plain']
+    >>> n_gram(2, "the rain in Spain falls mainly in Spain")
+    ['the rain', 'rain in', 'in Spain', 'Spain falls', 'falls mainly', 'mainly in', 'in Spain']
     >>> n_gram(3, "the rain in Spain falls mainly on the plain")
     ['the rain in', 'rain in Spain', 'in Spain falls', 'Spain falls mainly', 'falls mainly on', 'mainly on the', 'on the plain']
     >>> n_gram(1, "the rain in Spain falls mainly on the plain")
