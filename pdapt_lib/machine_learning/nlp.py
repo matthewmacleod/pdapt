@@ -161,9 +161,9 @@ def tokenize(s,n=1):
 
 # Models
 
-def n_gram(n, words):
+def n_gram(n, s):
     """ n gram model
-    input: string
+    input: string of text s
     output: list of n-grams from text
     NB to join sublists, [" ".join(i) for i in ngrams]
     >>> n_gram(2, "the rain in Spain falls mainly on the plain")
@@ -173,14 +173,14 @@ def n_gram(n, words):
     >>> n_gram(1, "the rain in Spain falls mainly on the plain")
     ['the', 'rain', 'in', 'Spain', 'falls', 'mainly', 'on', 'the', 'plain']
     """
-    words = words.split(" ")
+    words = s.split(" ")
     ngrams = [words[i:i+n] for i in range(len(words)-(n-1))]
     return [" ".join(i) for i in ngrams]
 
 
-def skip_gram(k, n, words):
+def skip_gram(k, n, s):
     """ skip grams
-    input: k (skip), n (as in n-gram), string words
+    input: k (skip), n (as in n-gram), s string text
     output: list of skip grams
     NB this is a bit trickier to do in one line...
     >>> skip_gram(1, 2, "the rain in Spain falls mainly on the plain")
@@ -192,7 +192,7 @@ def skip_gram(k, n, words):
     >>> skip_gram(2, 3, "the rain in Spain falls mainly on the plain")
     ['the Spain on', 'rain falls the', 'in mainly plain']
     """
-    words = words.split(" ")
+    words = s.split(" ")
     sgrams = [list([words[i]]) + [words[i+k+j] for j in range(1,n+k,k+1)] for i in range(len(words)-((1+k)*(n-1)))]
     return [" ".join(i) for i in sgrams]
 
