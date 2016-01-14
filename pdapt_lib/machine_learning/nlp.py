@@ -5,12 +5,14 @@ basic natural language processing code
 """
 from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial
 import re
+from collections import defaultdict
+
 
 # processing
 
 def expand(s):
     """ expand common contractions
-    input: string
+    input: string s
     output: string with contractions expanded
     >>> expand("It's cold out")
     'it is cold out'
@@ -47,7 +49,7 @@ def expand(s):
 
 def standardize_abbreviations(s):
     """ want to retain abbreviations, but a consistent set
-    input: string
+    input: string s
     output: string with reformated abbreviated
     NB this is needed to get more accurate counts
        eg  biologists are sloppy with acronyms (see tests)
@@ -67,7 +69,7 @@ def standardize_abbreviations(s):
 
 def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
-    input: text string
+    input: text string s
     output: text but special lowercased version
     NB will leave ALL capitalization, want this since
        associated with emphasis
@@ -75,12 +77,13 @@ def lowercase(s):
     'this is a NLP test.'
     """
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
+    s = re.sub(r'^[A-Z]\s', lambda x: x.group().lower(), s)
     return s
 
 
 def remove_numbers(s):
-    """ remove numbers in string
-    input: string text
+    """ remove most numbers in string
+    input: string text s
     output: string text without *most* numbers
     NB want to keep numbers associated with letters since
     they can be part of an abbreviation or name
@@ -127,6 +130,31 @@ def remove_punctuation(s):
     return s
 
 
+def tokenize(s,n=1):
+    """ lex the text
+    input: string of text s, n-gram model with default unigram model
+    output: dictionary of ngram token keys and counts (values)
+    >>> tokenize("A simple version of a tokenizer",1)
+    {'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 1}
+    >>> tokenize("A simple version1 of a tokenizer",1)
+    {'a': 2, 'simple': 1, 'VERSION1': 1, 'tokenizer': 1, 'of': 1}
+    """
+    # NB the order of the following processing functions is important!
+    s = expand(s)
+    s = standardize_abbreviations(s)
+    s = remove_numbers(s)
+    s = lowercase(s)
+    s = remove_punctuation(s)
+    tokens = {}
+    for t in s.split(" "):
+        if t in tokens:
+            tokens[t] += 1
+        else:
+            tokens[t] = 1
+    return tokens
+
+
+
 
 
 # Models
@@ -161,3 +189,7 @@ def skip_gram(k, n, words):
     """
     sgrams = [list([words[i]]) + [words[i+k+j] for j in range(1,n+k,k+1)] for i in range(len(words)-((1+k)*(n-1)))]
     return sgrams
+
+
+
+
