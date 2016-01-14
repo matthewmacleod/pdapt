@@ -134,10 +134,12 @@ def tokenize(s,n=1):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
-    >>> tokenize("A simple version of a tokenizer",1)
+    >>> tokenize("A simple version of a tokenizer")
     {'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 1}
-    >>> tokenize("A simple version1 of a tokenizer",1)
+    >>> tokenize("A simple version1 of a tokenizer")
     {'a': 2, 'simple': 1, 'VERSION1': 1, 'tokenizer': 1, 'of': 1}
+    >>> tokenize("A simple version-2 of a tokenizer")
+    {'a': 2, 'simple': 1, 'tokenizer': 1, 'VERSION2': 1, 'of': 1}
     """
     # NB the order of the following processing functions is important!
     s = expand(s)
@@ -152,7 +154,6 @@ def tokenize(s,n=1):
         else:
             tokens[t] = 1
     return tokens
-
 
 
 
