@@ -6,7 +6,7 @@ basic natural language processing code
 from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial
 import re
 from collections import defaultdict
-
+from functools import reduce
 
 # processing
 
@@ -158,10 +158,43 @@ def tokenize(s,n=1):
             tokens[w] = 1
     return tokens
 
+# Simple Token Features
+
+def mean_token_occurance(tokens):
+    """ average occurences of token in vocabulary
+    input: dictionary of tokens
+    output: average number of time each token in the vocabulary occurs
+    >>> mean_token_occurance({'the rain': 2, 'in spain': 2, 'rain in': 2, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1})
+    1.5
+    """
+    total = float(len(tokens))
+    return sum(map(lambda x: x[1], tokens.items())) / total
+
+def mean_vocab_word_length(tokens):
+    """ currently expecting unigrams
+    input: dictionary of unigram tokens
+    output: average length of each vocab word
+    NB does not reflect number of times occured in corpus (see mean_corpus_word_length for this)
+    >>> mean_vocab_word_length({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 1})
+    5.0
+    """
+    total = float(len(tokens))
+    return reduce(lambda acc, x: acc + len(x[0]), tokens.items(), 0) / total
+
+def mean_corpus_word_length(tokens):
+    """ currently expecting unigrams
+    input: dictionary of unigram tokens
+    output: average length each word in the corpus
+    >>> mean_corpus_word_length({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2})
+    4.0
+    """
+    total = float(sum(map(lambda x: x[1], tokens.items())))
+    return reduce(lambda acc, x: acc + len(x[0])*x[1], tokens.items(), 0) / total
 
 
 
 # Models
+
 
 def n_gram(n, s):
     """ n gram model
