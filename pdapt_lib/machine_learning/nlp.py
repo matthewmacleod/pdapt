@@ -170,16 +170,18 @@ def mean_token_occurance(tokens):
     total = float(len(tokens))
     return sum(map(lambda x: x[1], tokens.items())) / total
 
+
 def mean_vocab_word_length(tokens):
     """ currently expecting unigrams
     input: dictionary of unigram tokens
     output: average length of each vocab word
-    NB does not reflect number of times occured in corpus (see mean_corpus_word_length for this)
+    NB does not reflect number of times occured in text (see mean_corpus_word_length for this)
     >>> mean_vocab_word_length({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 1})
     5.0
     """
     total = float(len(tokens))
     return reduce(lambda acc, x: acc + len(x[0]), tokens.items(), 0) / total
+
 
 def mean_corpus_word_length(tokens):
     """ currently expecting unigrams
@@ -190,6 +192,73 @@ def mean_corpus_word_length(tokens):
     """
     total = float(sum(map(lambda x: x[1], tokens.items())))
     return reduce(lambda acc, x: acc + len(x[0])*x[1], tokens.items(), 0) / total
+
+
+def personal_pronoun_density(tokens):
+    """ get ration of personal pronouns to words
+    input: tokens
+    output: density of person pronouns in corpus (all text)
+    NB a supposedly good metric for differentiating gender
+    >>> personal_pronoun_density({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2, 'he': 2, 'she': 5})
+    0.5
+    """
+    pp = ['I','me','you','he','him','his','she','her','it','we','they','them','us']
+    total = float(sum(map(lambda x: x[1], tokens.items())))
+    pros = list(filter(lambda x: x[0] in pp, tokens.items()))
+    counts = reduce(lambda acc, x: acc + x[1], pros, 0)
+    return counts/total
+
+
+def anagram(a,b):
+    """ condititional test for anagram
+    input: a string, b string
+    output: true if anagram else false
+    >>> anagram('salvador dali','avida dollars')
+    True
+    """
+    return sorted(a) == sorted(b)
+
+
+def anagrams(words):
+    """
+    input: list of words
+    output: list of anagram tuples
+    >>> anagrams(['test','listen','silent','ceiiinosssttuv','zest','uttensiosicvis','hamlet','amleth'])
+    [('listen', 'silent'), ('ceiiinosssttuv', 'uttensiosicvis'), ('hamlet', 'amleth')]
+    """
+    agrams = []
+    for x in words:
+        for y in words:
+            if x != y:
+                if anagram(x,y):
+                    if (y,x) not in agrams:
+                        agrams.append((x,y))
+    return agrams
+
+
+def anagram_vocab_density(tokens):
+    """ return the density of anagrams in a vocabulary
+    input: tokens
+    output: number of anagrams divided by total vocabulary
+    >>> anagram_vocab_density({'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2, 'he': 2, 'she': 5, 'bird': 3, 'brid': 3})
+    0.125
+    """
+    total = float(len(tokens))
+    words = tokens.keys()
+    agrams = anagrams(words)
+    return len(agrams)/total
+
+
+def anagram_corpus_density(tokens):
+    """ return anagram usage density
+    >>> anagram_corpus_density({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2, 'he': 2, 'she': 5, 'bird': 3, 'brid': 3})
+    0.3
+    """
+    total = float(sum(map(lambda x: x[1], tokens.items())))
+    words = tokens.keys()
+    agrams = anagrams(words)
+    average_occurance = 0.0
+    return sum(map(lambda x: tokens[x[0]] + tokens[x[1]], agrams)) / total
 
 
 
