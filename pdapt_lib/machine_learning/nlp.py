@@ -241,12 +241,12 @@ def anagram_vocab_density(tokens):
     input: tokens
     output: number of anagrams divided by total vocabulary
     >>> anagram_vocab_density({'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2, 'he': 2, 'she': 5, 'bird': 3, 'brid': 3})
-    0.125
+    0.25
     """
     total = float(len(tokens))
     words = tokens.keys()
     agrams = anagrams(words)
-    return len(agrams)/total
+    return (len(agrams)*2.0)/total
 
 
 def anagram_corpus_density(tokens):
