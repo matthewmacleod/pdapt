@@ -257,7 +257,6 @@ def anagram_corpus_density(tokens):
     total = float(sum(map(lambda x: x[1], tokens.items())))
     words = tokens.keys()
     agrams = anagrams(words)
-    average_occurance = 0.0
     return sum(map(lambda x: tokens[x[0]] + tokens[x[1]], agrams)) / total
 
 
