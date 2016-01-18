@@ -8,6 +8,7 @@ import re
 from collections import defaultdict
 from functools import reduce
 
+
 # processing
 
 def expand(s):
@@ -47,6 +48,7 @@ def expand(s):
     s = re.sub(r'ain\'t', 'am not', s)
     return s
 
+
 def standardize_abbreviations(s):
     """ want to retain abbreviations, but a consistent set
     input: string s
@@ -66,6 +68,7 @@ def standardize_abbreviations(s):
     s = re.sub(r'(?<=[a-z])\-', '', s)
     s = re.sub(r'[A-Z]*[a-z]*[0-9]+', lambda x: x.group().upper(), s)
     return s
+
 
 def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
@@ -157,6 +160,7 @@ def tokenize(s,n=1):
         else:
             tokens[w] = 1
     return tokens
+
 
 # Simple Token Features
 
