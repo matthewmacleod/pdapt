@@ -140,7 +140,7 @@ def remove_stopwords(s):
     >>> remove_stopwords('a sentence with some sans common stopwords')
     'sentence sans common stopwords'
     """
-    stop_words = ["a", "about", "above", "above", "across", "after", "afterwards", "again",
+    stopwords = ["a", "about", "above", "above", "across", "after", "afterwards", "again",
                   "against", "all", "almost", "alone", "along", "already", "also","although",
                   "always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another",
                   "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",
@@ -175,7 +175,7 @@ def remove_stopwords(s):
                   "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole",
                   "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you",
                   "your", "yours", "yourself", "yourselves"]
-    uncommon_words = list(filter(lambda x: x not in stop_words, s.split(" ")))
+    uncommon_words = list(filter(lambda x: x not in stopwords, s.split(" ")))
     return " ".join(uncommon_words)
 
 
