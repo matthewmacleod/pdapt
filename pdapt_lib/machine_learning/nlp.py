@@ -174,7 +174,7 @@ def remove_stopwords(s):
                   "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon",
                   "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole",
                   "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you",
-                  "your", "yours", "yourself", "yourselves", "the"]
+                  "your", "yours", "yourself", "yourselves"]
     uncommon_words = list(filter(lambda x: x not in stop_words, s.split(" ")))
     return " ".join(uncommon_words)
 
