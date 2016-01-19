@@ -1,5 +1,5 @@
 """ NLP
-basic natural language processing code
+pdapt basic natural language processing code
 
 
 """
@@ -313,7 +313,6 @@ def anagram_corpus_density(tokens):
 
 # Models
 
-
 def n_gram(n, s):
     """ n gram model
     input: string of text s
@@ -352,5 +351,25 @@ def skip_gram(k, n, s):
     return [" ".join(i) for i in sgrams]
 
 
+def bigram_predict(t, s):
+    """ predict next word based on tokens
+    input: tokens t, string s
+    output: ngram+1 (where 1 is highest probable next word based on tokens)
+    NB tokens must consist of bigrams or larger, string input can be a unigram
+    empty string returned on no match
+    >>> bigram_predict({'the rain': 2, 'in spain': 2, 'rain in': 2, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1}, 'in the')
+    'rain'
+    >>> bigram_predict({'the rain': 2, 'in spain': 2, 'rain in': 2, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1}, 'in bed')
+    ''
+    """
+    start_word = (s.split(" "))[-1]
+    token_tuples = sorted(t.items(), key=lambda x: -x[1])
+    next_word = ''
+    for i in token_tuples:
+        ngram = i[0].split(" ")
+        if start_word == ngram[-2]:
+            next_word = ngram[-1]
+            break
+    return next_word
 
 
