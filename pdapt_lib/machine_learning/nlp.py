@@ -179,18 +179,12 @@ def remove_stopwords(s):
     return " ".join(uncommon_words)
 
 
-def tokenize(s,n=1):
+def tokenize(s, n=1, remove_stopwords=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
-    >>> tokenize("A simple version of a tokenizer")
-    {'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 1}
-    >>> tokenize("A simple version1 of a tokenizer")
-    {'a': 2, 'simple': 1, 'VERSION1': 1, 'tokenizer': 1, 'of': 1}
-    >>> tokenize("A simple version-2 of a tokenizer")
-    {'a': 2, 'simple': 1, 'tokenizer': 1, 'VERSION2': 1, 'of': 1}
-    >>> tokenize("the rain in Spain falls mainly in Spain", 2)
-    {'the rain': 1, 'in spain': 2, 'rain in': 1, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1}
+    NB testing is moved to tests_nlp.py since more complicated tests
+    are required.
     """
     # NB the order of the following processing functions is important!
     s = expand(s)
@@ -198,6 +192,8 @@ def tokenize(s,n=1):
     s = remove_numbers(s)
     s = lowercase(s)
     s = remove_punctuation(s)
+    if remove_stopwords:
+        s = remove_stopwords(s)
     tokens = {}
     ngrams =  n_gram(n,s)
     for w in ngrams:
@@ -371,5 +367,8 @@ def bigram_predict(t, s):
             next_word = ngram[-1]
             break
     return next_word
+
+
+
 
 
