@@ -179,7 +179,7 @@ def remove_stopwords(s):
     return " ".join(uncommon_words)
 
 
-def tokenize(s, n=1, remove_stopwords=False):
+def tokenize(s, n=1, removing_stopwords=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
@@ -192,7 +192,7 @@ def tokenize(s, n=1, remove_stopwords=False):
     s = remove_numbers(s)
     s = lowercase(s)
     s = remove_punctuation(s)
-    if remove_stopwords:
+    if removing_stopwords:
         s = remove_stopwords(s)
     tokens = {}
     ngrams =  n_gram(n,s)
@@ -203,6 +203,24 @@ def tokenize(s, n=1, remove_stopwords=False):
             tokens[w] = 1
     return tokens
 
+def merge_tokens(a,b):
+    """ combine token sets
+    input: tokens a, tokens b
+    output: combined dictionary of a and b tokens
+    NB the lengths of each dictionary may differ
+    """
+    new_tokens = {}
+    for k,v in a.items():
+        if k in b:
+            new_tokens[k] = b[k] + v
+        else:
+            new_tokens[k] = v
+    for k,v in b.items():
+        if k in a:
+            new_tokens[k] = a[k] + v
+        else:
+            new_tokens[k] = v
+    return new_tokens
 
 # Simple Token Features
 

@@ -39,4 +39,28 @@ class TestNLP(unittest.TestCase):
         result = self.compare_dicts(a_tokens, b)
         self.assertEqual(result, True)
 
+    def test_tokenize5(self):
+        """ test removing stopwords """
+        a_tokens = nlp.tokenize("the rain in Spain falls mainly in Spain", 2, True)
+        b = {'falls mainly': 1, 'mainly spain': 1, 'rain spain': 1, 'spain falls': 1}
+        result = self.compare_dicts(a_tokens, b)
+        self.assertEqual(result, True)
+
+    def test_merge_tokens(self):
+        a_tokens = nlp.tokenize("A simple version-1 of a tokenizer", 1, False)
+        b_tokens = nlp.tokenize("A simple version-2 of a tokenizer", 1, False)
+        c_tokens = nlp.merge_tokens(a_tokens,b_tokens)
+        c = {'VERSION1': 1, 'VERSION2': 1, 'a': 4, 'of': 2, 'simple': 2, 'tokenizer': 2}
+        result = self.compare_dicts(c_tokens, c)
+        self.assertEqual(result, True)
+
+    def test_merge_tokens2(self):
+        a_tokens = nlp.tokenize("the rain in Spain falls mainly in Spain", 2, False)
+        b_tokens = nlp.tokenize("A simple version-2 of a tokenizer", 1, False)
+        c_tokens = nlp.merge_tokens(a_tokens,b_tokens)
+        c = {'VERSION2': 1, 'a': 2, 'falls mainly': 1, 'in spain': 2, 'mainly in': 1, 'of': 1, 'rain in': 1, 'simple': 1, 'spain falls': 1, 'the rain': 1, 'tokenizer': 1}
+        result = self.compare_dicts(c_tokens, c)
+
+
+
 
