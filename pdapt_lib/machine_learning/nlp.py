@@ -206,7 +206,7 @@ def tokenize(s, n=1, removing_stopwords=False):
 def merge_tokens(a,b):
     """ combine token sets
     input: tokens a, tokens b
-    output: combined dictionary of a and b tokens
+    output: combined dictionary of a and b tokens where values of same keys have been combined
     NB the lengths of each dictionary may differ
     """
     new_tokens = {}
