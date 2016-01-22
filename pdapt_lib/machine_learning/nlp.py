@@ -17,6 +17,12 @@ def split_by_n(s, n):
         yield s[:n]
         s = s[n:]
 
+def is_even(x):
+    """ return true if number is even """
+    if x % 2 == 1:
+        return False
+    else:
+        return True
 
 def n_split(n, s):
     """ split a string
@@ -25,16 +31,16 @@ def n_split(n, s):
     NB: exact chunck sizes may differ slightly but there will be
     no information loss and number of chunks returned should be
     consistent.
-    >>> n_split(2, "it's a whole new world")
-    ["it's a whole", ' new world']
-    >>> n_split(2, "it's a whole new world!")
-    ["it's a whole", ' new world!']
+    >>> n_split(2, "its a whole new world!")
+    ['its a whole ', 'new world!']
+    >>> n_split(2, "it's an odd new world!!")
+    ["it's an odd ", 'new world!!']
     >>> n_split(3, "it's a whole new world")
     ["it's a w", 'hole new', ' world']
     >>> n_split(4, "it's a whole new world")
     ["it's a", ' whole', ' new w', 'orld']
     """
-    chunks = (len(s)//n)+1
+    chunks = (len(s)//n) + 1
     return list(split_by_n(s, chunks))
 
 
