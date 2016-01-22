@@ -11,6 +11,28 @@ from functools import reduce
 
 # processing
 
+def split_by_n(s, n):
+    """ generator to divide a string into n chunks """
+    while s:
+        yield s[:n]
+        s = s[n:]
+
+
+def n_split(n, s):
+    """ split a string
+    input:  total number of chunks n, string s
+    output: list of string chunks
+    >>> n_split(2, "it's a whole new world")
+    ["it's a whole", ' new world']
+    >>> n_split(3, "it's a whole new world")
+    ["it's a w", 'hole new', ' world']
+    >>> n_split(4, "it's a whole new world")
+    ["it's a", ' whole', ' new w', 'orld']
+    """
+    chunks = (len(s)//n)+1
+    return list(split_by_n(s, chunks))
+
+
 def expand(s):
     """ expand common contractions
     input: string s
@@ -81,6 +103,15 @@ def lowercase(s):
     """
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
     s = re.sub(r'^[A-Z]\s', lambda x: x.group().lower(), s)
+    return s
+
+def uppercase_i(s):
+    """ uppercase single word I
+    >>> uppercase_i("i better work or i will have trouble Indeed")
+    'I better work or I will have trouble Indeed'
+    """
+    s = re.sub(r'^i\s+', lambda x: x.group().upper(), s)
+    s = re.sub(r'\s+i\s+', lambda x: x.group().upper(), s)
     return s
 
 
@@ -174,7 +205,7 @@ def remove_stopwords(s):
                   "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon",
                   "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole",
                   "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you",
-                  "your", "yours", "yourself", "yourselves"]
+                  "your", "yours", "yourself", "yourselves", "s", "t", "d"]
     uncommon_words = list(filter(lambda x: x not in stopwords, s.split(" ")))
     return " ".join(uncommon_words)
 
@@ -183,14 +214,16 @@ def tokenize(s, n=1, removing_stopwords=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
-    NB testing is moved to tests_nlp.py since more complicated tests
+    NB: testing is moved to tests_nlp.py since more complicated tests
     are required.
+    NB 2: careful with stopword removal, sometimes they are helpful
     """
     # NB the order of the following processing functions is important!
     s = expand(s)
     s = standardize_abbreviations(s)
     s = remove_numbers(s)
     s = lowercase(s)
+    s = uppercase_i(s)
     s = remove_punctuation(s)
     if removing_stopwords:
         s = remove_stopwords(s)
