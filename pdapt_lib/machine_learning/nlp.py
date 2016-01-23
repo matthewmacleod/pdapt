@@ -29,8 +29,7 @@ def n_split(n, s):
     input:  total number of chunks n, string s
     output: list of string chunks
     NB: exact chunck sizes may differ slightly but there will be
-    no information loss and number of chunks returned should be
-    consistent.
+    no information loss and number of chunks returned should be consistent.
     >>> n_split(2, "its a whole new world!")
     ['its a whole ', 'new world!']
     >>> n_split(2, "it's an odd new world!!")
