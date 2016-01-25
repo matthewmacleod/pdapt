@@ -102,6 +102,15 @@ def standardize_abbreviations(s):
     return s
 
 
+def extract_sentences(s):
+    """ extract sentences
+    input: string text s
+    output: list of sentence strings
+    """
+    l = []
+    return l
+
+
 def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
     input: text string s
