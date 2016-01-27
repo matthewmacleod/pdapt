@@ -106,9 +106,11 @@ def extract_sentences(s):
     """ extract sentences
     input: string text s
     output: list of sentence strings
+    >>> extract_sentences("I'm a sentence. Me too! And me?")
+    ["I'm a sentence.", 'Me too!', 'And me?']
     """
-    l = []
-    return l
+    extract = re.compile('[A-Z].+?[.!?]\s*?') # non-greedy
+    return extract.findall(s)
 
 
 def lowercase(s):
