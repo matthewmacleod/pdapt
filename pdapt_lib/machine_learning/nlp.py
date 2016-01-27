@@ -276,7 +276,21 @@ def merge_tokens(a,b):
             new_tokens[k] = v
     return new_tokens
 
-# Simple Token Features
+
+# Simple string features
+
+def mean_sentence_length(s):
+    """ average sentence size
+    input: string text s
+    output: avg number of characters in each sentence in string
+    >>> mean_sentence_length("I'm a very long sentence. Me too! And me?")
+    13.0
+    """
+    sentences = extract_sentences(s)
+    total = float(len(sentences))
+    return sum(map(lambda x: len(x), sentences)) / total
+
+# Simple token teatures
 
 def mean_token_occurance(tokens):
     """ average occurences of token in vocabulary
