@@ -7,6 +7,7 @@ from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial
 import re
 from collections import defaultdict
 from functools import reduce
+import math
 
 
 # processing
@@ -405,6 +406,23 @@ def anagram_corpus_density(tokens):
     agrams = anagrams(words)
     return sum(map(lambda x: tokens[x[0]] + tokens[x[1]], agrams)) / total
 
+
+# Classification tools
+
+def tfidf(term, doc, docs):
+    """ term frequency - inverse document frequency
+    input: term, doc, docs
+    output: tfidf for term
+    NB the tf part is a raw frequency, and the idf variant is idf smooth
+    the idf accounts for how popular
+    the word is in other documents-this downweights common words. Can be used
+    to generate stopwords.
+    >>> tfidf('c', ['a','c','c'],[['a'],['a','c','c'],['a','b','c']])
+    0.6108604879161034
+    """
+    tf = float(doc.count(term))/len(doc)
+    idf = math.log(1.0 + (float(len(docs))/(len([d for d in docs if term in d]))))
+    return tf*idf
 
 
 # Models
