@@ -290,6 +290,20 @@ def mean_sentence_length(s):
     total = float(len(sentences))
     return sum(map(lambda x: len(x), sentences)) / total
 
+
+def mean_words_in_sentence(s):
+    """ average number of words in sentence
+    input: string text s
+    output: average number of words in each sentence
+    NB while similar to mean_sentance_length this is perhaps more comprehensible metric
+    >>> mean_words_in_sentence("I'm a very long sentence. Me too! And me?")
+    3.0
+    """
+    sentences = extract_sentences(s)
+    total = float(len(sentences))
+    return sum(map(lambda x: len(x.split(" ")), sentences)) / total
+
+
 # Simple token teatures
 
 def mean_token_occurance(tokens):
