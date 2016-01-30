@@ -110,7 +110,7 @@ def extract_sentences(s):
     >>> extract_sentences("I'm a sentence. Me too! And me?")
     ["I'm a sentence.", 'Me too!', 'And me?']
     """
-    extract = re.compile('[A-Z].+?[.!?]\s*?') # non-greedy
+    extract = re.compile(r'[A-Z].+?[.!?]\s*?') # non-greedy
     return extract.findall(s)
 
 
@@ -126,6 +126,7 @@ def lowercase(s):
     s = re.sub(r'[A-Z][a-z]+', lambda x: x.group().lower(), s)
     s = re.sub(r'^[A-Z]\s', lambda x: x.group().lower(), s)
     return s
+
 
 def uppercase_i(s):
     """ uppercase single word I
@@ -413,10 +414,10 @@ def tfidf(term, doc, docs):
     """ term frequency - inverse document frequency
     input: term, doc, docs
     output: tfidf for term
-    NB the tf part is a raw frequency, and the idf variant is idf smooth
-    the idf accounts for how popular
-    the word is in other documents-this downweights common words. Can be used
-    to generate stopwords.
+    NB since there are many variants of tf-idf: the tf here is a raw frequency,
+    and the idf variant is idf smooth.
+    The idf accounts for how popular the word is in other documents-this
+    downweights common words. Can be used to generate stopwords.
     >>> tfidf('c', ['a','c','c'],[['a'],['a','c','c'],['a','b','c']])
     0.6108604879161034
     """
