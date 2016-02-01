@@ -103,11 +103,11 @@ def standardize_abbreviations(s):
     return s
 
 
-def extract_sentences(s):
+def simple_extract_sentences(s):
     """ extract sentences
     input: string text s
     output: list of sentence strings
-    >>> extract_sentences("I'm a sentence. Me too! And me?")
+    >>> simple_extract_sentences("I'm a sentence. Me too! And me?")
     ["I'm a sentence.", 'Me too!', 'And me?']
     """
     extract = re.compile(r'[A-Z].+?[.!?]\s*?') # non-greedy
@@ -288,7 +288,7 @@ def mean_sentence_length(s):
     >>> mean_sentence_length("I'm a very long sentence. Me too! And me?")
     13.0
     """
-    sentences = extract_sentences(s)
+    sentences = simple_extract_sentences(s)
     total = float(len(sentences))
     return sum(map(lambda x: len(x), sentences)) / total
 
@@ -301,7 +301,7 @@ def mean_words_in_sentence(s):
     >>> mean_words_in_sentence("I'm a very long sentence. Me too! And me?")
     3.0
     """
-    sentences = extract_sentences(s)
+    sentences = simple_extract_sentences(s)
     total = float(len(sentences))
     return sum(map(lambda x: len(x.split(" ")), sentences)) / total
 
