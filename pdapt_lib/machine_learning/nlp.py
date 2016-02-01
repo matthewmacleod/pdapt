@@ -29,7 +29,7 @@ def n_split(n, s):
     """ split a string
     input:  total number of chunks n, string s
     output: list of string chunks
-    NB: exact chunck sizes may differ slightly but there will be
+    NB exact chunck sizes may differ slightly but there will be
     no information loss and number of chunks returned should be consistent.
     >>> n_split(2, "its a whole new world!")
     ['its a whole ', 'new world!']
@@ -112,6 +112,62 @@ def simple_extract_sentences(s):
     """
     extract = re.compile(r'[A-Z].+?[.!?]\s*?') # non-greedy
     return extract.findall(s)
+
+
+def find_sentence_start(s):
+    """ get starting 0-index start position of first sentence in string
+    input: text string s
+    output: starting index of first sentence in string
+    NB so far definition is simply that need a capital letter followed
+    by something other than a period.
+    >>> find_sentence_start("I'm a sentence. Me too! And me?")
+    0
+    >>> find_sentence_start("i'm not a U.S. sentence. I am.")
+    25
+    >>> find_sentence_start("i'm not a sentence. me neither.") is None
+    True
+    """
+    for i,character in enumerate(s):
+        if character.isupper():
+            if i != len(s) and s[i+1] != '.':
+              return i
+    return None
+
+
+def sentence_terminator(c):
+    """ check if character is a standard sentence terminator
+    input: character c
+    output: True if c is in terminator list, otherwise False
+    >>> sentence_terminator("_")
+    False
+    >>> sentence_terminator(".")
+    True
+    """
+    terminators = ['.','!','?']
+    return c in terminators
+
+
+def find_sentence_end(s):
+    """ get zero-indexed end position of first sentence in string
+    input: text string s
+    output: index of first end of sentence in string
+    NB so far sentence termination is indicated with a terminator
+    followed by an end of string, or by a space and capital letter.
+    This code can thus handle simple acronyms.
+    >>> find_sentence_end("I'm here.")
+    8
+    >>> find_sentence_end("I'm a U.S. sentence. Me too! And me?")
+    19
+    """
+    for i, character in enumerate(s):
+        if i == (len(s) - 1):
+            if sentence_terminator(character):
+                return i
+        else:
+            if i < (len(s) - 2):
+                if sentence_terminator(character) and s[i+1] == ' ' and s[i+2].isupper():
+                    return i
+    return None
 
 
 def lowercase(s):
@@ -237,9 +293,9 @@ def tokenize(s, n=1, removing_stopwords=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
-    NB: testing is moved to tests_nlp.py since more complicated tests
+    NB testing is moved to tests_nlp.py since more complicated tests
     are required.
-    NB 2: careful with stopword removal, sometimes they are helpful
+    NB careful with stopword removal, sometimes they are helpful
     """
     # NB the order of the following processing functions is important!
     s = expand(s)
