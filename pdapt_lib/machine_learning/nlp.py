@@ -170,6 +170,28 @@ def find_sentence_end(s):
     return None
 
 
+def extract_sentences(text, sentences=None):
+    """ recursively extract sentences from text
+    input: string text s
+    output: list of sentence strings
+    >>> extract_sentences("I'm a sentence. Me too! And me?")
+    ["I'm a sentence.", 'Me too! ', 'And me?']
+    >>> extract_sentences("I understand acronyms like the U.S. and others. Good job!")
+    ['I understand acronyms like the U.S. and others.', 'Good job!']
+    """
+    if sentences is None: sentences = []
+    start_position = find_sentence_start(text)
+    end_position = find_sentence_end(text)
+    if start_position == None or end_position == None:
+        return sentences
+    else:
+        text = text[start_position:]
+        sentence = text[0:end_position+1]
+        sentences.append(sentence)
+        text = text[end_position+1:]
+        return extract_sentences(text,sentences)
+
+
 def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
     input: text string s
