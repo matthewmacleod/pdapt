@@ -54,6 +54,10 @@ To run doc tests, pick a module:
     python -m doctest -v pdapt_lib/machine_learning/nlp.py
 
 
+to check for failing doctests:
+
+    python -m doctest -v pdapt_lib/machine_learning/nlp.py | grep -A 5 Failed
+
 
 Documentation
 ---------------
