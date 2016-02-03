@@ -44,6 +44,16 @@ def n_split(n, s):
     return list(split_by_n(s, chunks))
 
 
+def hamming_distance(s,t):
+    """ sum of differences between strings
+    input: string s, string t
+    output: sum of differences
+    >>> hamming_distance("kathrin","karolin")
+    3
+    """
+    return sum(1 for a, b in zip(s,t) if a != b)
+
+
 def expand(s):
     """ expand common contractions
     input: string s
