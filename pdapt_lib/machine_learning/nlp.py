@@ -321,6 +321,18 @@ def remove_stopwords(s):
     return " ".join(uncommon_words)
 
 
+def stem(word):
+    """ stem words, ie remove alternate endings to reduce repetition
+    input: string word
+    output: word with suffix removed
+    >>> stem('thinking')
+    'think'
+    """
+    regex = r'^(.*?)(ies|es|s|ed|ing|ly|ment)?$'
+    stem, _suffix = re.findall(regex, word)[0]
+    return stem
+
+
 def tokenize(s, n=1, removing_stopwords=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
