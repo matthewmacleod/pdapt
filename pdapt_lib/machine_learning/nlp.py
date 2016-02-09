@@ -340,7 +340,19 @@ def stem(word):
     return stem
 
 
-def tokenize(s, n=1, removing_stopwords=False):
+def stem_string(s):
+    """ stem words in string
+    input: string text s
+    output: string text with all words stemmed
+    >>> stem_string('a test for stemming')
+    'a test for stemm'
+    """
+    words = s.split(" ")
+    stemmed_words = [stem(w) for w in words]
+    return " ".join(stemmed_words)
+
+
+def tokenize(s, n=1, removing_stopwords=False, stemming=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
@@ -357,6 +369,8 @@ def tokenize(s, n=1, removing_stopwords=False):
     s = remove_punctuation(s)
     if removing_stopwords:
         s = remove_stopwords(s)
+    if stemming:
+        s = stem_string(s)
     tokens = {}
     ngrams =  n_gram(n,s)
     for w in ngrams:
