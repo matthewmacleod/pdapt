@@ -325,10 +325,17 @@ def stem(word):
     """ stem words, ie remove alternate endings to reduce repetition
     input: string word
     output: word with suffix removed
+    NB the stemming may result in odd words, but gain consistency-see below
     >>> stem('thinking')
     'think'
+    >>> stem('derived')
+    'deriv'
+    >>> stem('derives')
+    'deriv'
+    >>> stem('derivative')
+    'deriv'
     """
-    regex = r'^(.*?)(ies|es|s|ed|ing|ive|ious|ly|ment)?$'
+    regex = r'^(.*?)(ies|es|s|ed|ing|ative|ive|ious|ly|ment)?$'
     stem, _suffix = re.findall(regex, word)[0]
     return stem
 
