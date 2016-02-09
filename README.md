@@ -35,28 +35,20 @@ Running
 Testing
 -----------------
 
-    python -m unittest discover pdapt_lib 'test_*.py'
+To run unit tests:
 
-To run doc tests, pick a module:
-
-    python -m doctest -v pdapt_lib/machine_learning/maths.py
-
-    python -m doctest -v pdapt_lib/machine_learning/stats.py
-
-    python -m doctest -v pdapt_lib/machine_learning/probs.py
-
-    python -m doctest -v pdapt_lib/machine_learning/cross_validation.py
-
-    python -m doctest -v pdapt_lib/machine_learning/optimize.py
-
-    python -m doctest -v pdapt_lib/machine_learning/regression.py
-
-    python -m doctest -v pdapt_lib/machine_learning/nlp.py
+    ./run_pdapt_tests unit
 
 
-to check for failing doctests:
+To run doctests:
 
-    python -m doctest -v pdapt_lib/machine_learning/nlp.py | grep -A 5 Failed
+    ./run_pdapt_tests doctest
+
+
+To check doctests for failures:
+
+    ./run_pdapt_tests doctestf
+
 
 
 Documentation
