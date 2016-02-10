@@ -108,6 +108,8 @@ webscraping, nlp
 
       ./bin/pip install crab
 
+      ./bin/pip install pyldavis
+
 financial
 
       ./bin/pip install zipline
