@@ -9,26 +9,20 @@ fi
 
 test=$1
 
+modules="maths stats probs cross_validation optimize regression nlp"
+
 . ./bin/activate
 
 if [ $test == 'unit' ]; then
     python -m unittest discover pdapt_lib 'test_*.py'
 elif [ $test == 'doctest' ]; then
-    python -m doctest -v pdapt_lib/machine_learning/maths.py
-    python -m doctest -v pdapt_lib/machine_learning/stats.py
-    python -m doctest -v pdapt_lib/machine_learning/probs.py
-    python -m doctest -v pdapt_lib/machine_learning/cross_validation.py
-    python -m doctest -v pdapt_lib/machine_learning/optimize.py
-    python -m doctest -v pdapt_lib/machine_learning/regression.py
-    python -m doctest -v pdapt_lib/machine_learning/nlp.py
+    for i in `echo $modules`; do
+      python -m doctest -v pdapt_lib/machine_learning/"$i".py
+    done
 elif [ $test == 'doctestf' ]; then
-    python -m doctest -v pdapt_lib/machine_learning/maths.py | grep -A 5 Failed
-    python -m doctest -v pdapt_lib/machine_learning/stats.py | grep -A 5 Failed
-    python -m doctest -v pdapt_lib/machine_learning/probs.py | grep -A 5 Failed
-    python -m doctest -v pdapt_lib/machine_learning/cross_validation.py | grep -A 5 Failed
-    python -m doctest -v pdapt_lib/machine_learning/optimize.py | grep -A 5 Failed
-    python -m doctest -v pdapt_lib/machine_learning/regression.py | grep -A 5 Failed
-    python -m doctest -v pdapt_lib/machine_learning/nlp.py | grep -A 5 Failed
+    for i in `echo $modules`; do
+      python -m doctest -v pdapt_lib/machine_learning/"$i".py | grep -A 5 Failed
+    done
 else
     echo "arguement not recognized"
 fi
