@@ -326,6 +326,7 @@ def stem(word):
     input: string word
     output: word with suffix removed
     NB the stemming may result in odd words, but gain consistency-see below
+    NB some execeptions are included, these relate to return non-verb related nouns or short form ing verbs
     >>> stem('thinking')
     'think'
     >>> stem('derived')
@@ -334,10 +335,21 @@ def stem(word):
     'deriv'
     >>> stem('derivative')
     'deriv'
+    >>> stem('sing')
+    'sing'
+    >>> stem('sterling')
+    'sterling'
     """
-    regex = r'^(.*?)(ies|es|s|ed|ing|ative|ive|ious|ly|ment)?$'
-    stem, _suffix = re.findall(regex, word)[0]
-    return stem
+    exceptions = re.compile(r"""[A-Za-z]ing|[A-Za-z].ing|
+                                 [Ss]omething|[Nn]othing|[Dd]uring|[Ee]vening|[Mm]orning|
+                                 [Ss]tring|[Cc]eiling|[Ss]terling|[Cc]ling|[Gg]osling|
+                                 [Ii]cing|[Ss]illing|[Ss]ting|[Vv]iking|[Ff]iling|[Cc]arling""", re.X)
+    if exceptions.match(word):
+        return word
+    else:
+       regex = r'^(.*?)(ies|es|s|ed|ing|ative|ive|ious|ly|ment)?$'
+       stem, _suffix = re.findall(regex, word)[0]
+       return stem
 
 
 def stem_string(s):
