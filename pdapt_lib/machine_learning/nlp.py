@@ -29,8 +29,10 @@ def n_split(n, s):
     """ split a string
     input:  total number of chunks n, string s
     output: list of string chunks
-    NB exact chunck sizes may differ slightly but there will be
-    no information loss and number of chunks returned should be consistent.
+
+    NB exact chunck sizes may differ slightly but there will be no
+       information loss and number of chunks returned should be consistent.
+
     >>> n_split(2, "its a whole new world!")
     ['its a whole ', 'new world!']
     >>> n_split(2, "it's an odd new world!!")
@@ -48,6 +50,7 @@ def hamming_distance(s,t):
     """ sum of differences between strings
     input: string s, string t
     output: sum of differences
+
     >>> hamming_distance("kathrin","karolin")
     3
     """
@@ -58,6 +61,7 @@ def expand(s):
     """ expand common contractions
     input: string s
     output: string with contractions expanded
+
     >>> expand("It's cold out")
     'it is cold out'
     >>> expand("I've been busy")
@@ -96,9 +100,11 @@ def standardize_abbreviations(s):
     """ want to retain abbreviations, but a consistent set
     input: string s
     output: string with reformated abbreviated
+
     NB this is needed to get more accurate counts
        eg  biologists are sloppy with acronyms (see tests)
     NB U.S. will be converted to US and not us (ambiguous)
+
     >>> standardize_abbreviations("The U.S. or U.S.A. test")
     'The US or USA test'
     >>> standardize_abbreviations("Test for dashes JAK-1")
@@ -117,6 +123,7 @@ def simple_extract_sentences(s):
     """ extract sentences
     input: string text s
     output: list of sentence strings
+
     >>> simple_extract_sentences("I'm a sentence. Me too! And me?")
     ["I'm a sentence.", 'Me too!', 'And me?']
     """
@@ -128,8 +135,10 @@ def find_sentence_start(s):
     """ get starting 0-index start position of first sentence in string
     input: text string s
     output: starting index of first sentence in string
+
     NB so far definition is simply that need a capital letter followed
-    by something other than a period.
+       by something other than a period.
+
     >>> find_sentence_start("I'm a sentence. Me too! And me?")
     0
     >>> find_sentence_start("i'm not a U.S. sentence. I am.")
@@ -148,6 +157,7 @@ def sentence_terminator(c):
     """ check if character is a standard sentence terminator
     input: character c
     output: True if c is in terminator list, otherwise False
+
     >>> sentence_terminator("_")
     False
     >>> sentence_terminator(".")
@@ -161,9 +171,11 @@ def find_sentence_end(s):
     """ get zero-indexed end position of first sentence in string
     input: text string s
     output: index of first end of sentence in string
+
     NB so far sentence termination is indicated with a terminator
-    followed by an end of string, or by a space and capital letter.
-    This code can thus handle simple acronyms.
+       followed by an end of string, or by a space and capital letter.
+       This code can thus handle simple acronyms.
+
     >>> find_sentence_end("I'm here.")
     8
     >>> find_sentence_end("I'm a U.S. sentence. Me too! And me?")
@@ -184,6 +196,7 @@ def extract_sentences(text, sentences=None):
     """ recursively extract sentences from text
     input: string text s
     output: list of sentence strings
+
     >>> extract_sentences("I'm a sentence. Me too! And me?")
     ["I'm a sentence.", 'Me too! ', 'And me?']
     >>> extract_sentences("I understand acronyms like the U.S. and others. Good job!")
@@ -206,8 +219,10 @@ def lowercase(s):
     """ return lowercased text EXCEPT for abbreviations
     input: text string s
     output: text but special lowercased version
+
     NB will leave ALL capitalization, want this since
        associated with emphasis
+
     >>> lowercase("This is a NLP test.")
     'this is a NLP test.'
     """
@@ -218,6 +233,7 @@ def lowercase(s):
 
 def uppercase_i(s):
     """ uppercase single word I
+
     >>> uppercase_i("i better work or i will have trouble Indeed")
     'I better work or I will have trouble Indeed'
     """
@@ -230,8 +246,10 @@ def remove_numbers(s):
     """ remove most numbers in string
     input: string text s
     output: string text without *most* numbers
+
     NB want to keep numbers associated with letters since
-    they can be part of an abbreviation or name
+       they can be part of an abbreviation or name
+
     >>> remove_numbers("A sentence with some1 55 items.")
     'A sentence with some1 items.'
     >>> remove_numbers("123 test.")
@@ -266,6 +284,7 @@ def remove_punctuation(s):
     """ remove punctionation
     input: string text
     output: string text with punctiontion removed
+
     >>> remove_punctuation("A bit of marks # @ ! & * [] {}.")
     'A bit of marks '
     >>> remove_punctuation("Another test-for-you!")
@@ -279,6 +298,7 @@ def remove_stopwords(s):
     """ remove common words
     input: text string s
     output: text string with stop words removed
+
     >>> remove_stopwords('a sentence with some sans common stopwords')
     'sentence sans common stopwords'
     """
@@ -325,8 +345,10 @@ def stem(word):
     """ stem words, ie remove alternate endings to reduce repetition
     input: string word
     output: word with suffix removed
+
     NB the stemming may result in odd words, but gain consistency-see below
     NB some execeptions are included, these relate to return non-verb related nouns or short form ing verbs
+
     >>> stem('thinking')
     'think'
     >>> stem('derived')
@@ -356,6 +378,7 @@ def stem_string(s):
     """ stem words in string
     input: string text s
     output: string text with all words stemmed
+
     >>> stem_string('a test for stemming')
     'a test for stemm'
     """
@@ -368,8 +391,9 @@ def tokenize(s, n=1, removing_stopwords=False, stemming=False):
     """ lex the text
     input: string of text s, n-gram model with default unigram model
     output: dictionary of ngram token keys and counts (values)
+
     NB testing is moved to tests_nlp.py since more complicated tests
-    are required.
+       are required.
     NB careful with stopword removal, sometimes they are helpful
     """
     # NB the order of the following processing functions is important!
@@ -396,6 +420,7 @@ def merge_tokens(a,b):
     """ combine token sets
     input: tokens a, tokens b
     output: combined dictionary of a and b tokens where values of same keys have been combined
+
     NB the lengths of each dictionary may differ
     """
     new_tokens = {}
@@ -418,6 +443,7 @@ def mean_sentence_length(s):
     """ average sentence size
     input: string text s
     output: avg number of characters in each sentence in string
+
     >>> mean_sentence_length("I'm a very long sentence. Me too! And me?")
     13.0
     """
@@ -430,7 +456,9 @@ def mean_words_in_sentence(s):
     """ average number of words in sentence
     input: string text s
     output: average number of words in each sentence
+
     NB while similar to mean_sentance_length this is perhaps more comprehensible metric
+
     >>> mean_words_in_sentence("I'm a very long sentence. Me too! And me?")
     3.0
     """
@@ -445,6 +473,7 @@ def mean_token_occurance(tokens):
     """ average occurences of token in vocabulary
     input: dictionary of tokens
     output: average number of time each token in the vocabulary occurs
+
     >>> mean_token_occurance({'the rain': 2, 'in spain': 2, 'rain in': 2, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1})
     1.5
     """
@@ -456,7 +485,9 @@ def mean_vocab_word_length(tokens):
     """ currently expecting unigrams
     input: dictionary of unigram tokens
     output: average length of each vocab word
+
     NB does not reflect number of times occured in text (see mean_corpus_word_length for this)
+
     >>> mean_vocab_word_length({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 1})
     5.0
     """
@@ -468,6 +499,7 @@ def mean_corpus_word_length(tokens):
     """ currently expecting unigrams
     input: dictionary of unigram tokens
     output: average length each word in the corpus
+
     >>> mean_corpus_word_length({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2})
     4.0
     """
@@ -480,6 +512,7 @@ def personal_pronoun_density(tokens):
     input: tokens
     output: density of person pronouns in corpus (all text)
     NB a supposedly good metric for differentiating gender
+
     >>> personal_pronoun_density({'a': 2, 'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2, 'he': 2, 'she': 5})
     0.5
     """
@@ -494,6 +527,7 @@ def anagram(a,b):
     """ condititional test for anagram
     input: a string, b string
     output: true if anagram else false
+
     >>> anagram('salvador dali','avida dollars')
     True
     """
@@ -504,6 +538,7 @@ def anagrams(words):
     """
     input: list of words
     output: list of anagram tuples
+
     >>> anagrams(['test','listen','silent','ceiiinosssttuv','zest','uttensiosicvis','hamlet','amleth'])
     [('listen', 'silent'), ('ceiiinosssttuv', 'uttensiosicvis'), ('hamlet', 'amleth')]
     """
@@ -521,6 +556,7 @@ def anagram_vocab_density(tokens):
     """ return the density of anagrams in a vocabulary
     input: tokens
     output: number of anagrams divided by total vocabulary
+
     >>> anagram_vocab_density({'simple': 1, 'version': 1, 'tokenizer': 1, 'of': 2, 'he': 2, 'she': 5, 'bird': 3, 'brid': 3})
     0.25
     """
@@ -547,10 +583,12 @@ def tfidf(term, doc, docs):
     """ term frequency - inverse document frequency
     input: term, doc, docs
     output: tfidf for term
+
     NB since there are many variants of tf-idf: the tf here is a raw frequency,
-    and the idf variant is idf smooth.
-    The idf accounts for how popular the word is in other documents-this
-    downweights common words. Can be used to generate stopwords.
+       and the idf variant is idf smooth.
+    NB The idf accounts for how popular the word is in other documents-this
+       downweights common words. Can be used to generate stopwords.
+
     >>> tfidf('c', ['a','c','c'],[['a'],['a','c','c'],['a','b','c']])
     0.6108604879161034
     """
@@ -565,7 +603,9 @@ def n_gram(n, s):
     """ n gram model
     input: string of text s
     output: list of n-grams from text
+
     NB to join sublists, [" ".join(i) for i in ngrams]
+
     >>> n_gram(2, "the rain in Spain falls mainly on the plain")
     ['the rain', 'rain in', 'in Spain', 'Spain falls', 'falls mainly', 'mainly on', 'on the', 'the plain']
     >>> n_gram(2, "the rain in Spain falls mainly in Spain")
@@ -584,7 +624,9 @@ def skip_gram(k, n, s):
     """ skip grams
     input: k (skip), n (as in n-gram), s string text
     output: list of skip grams
+
     NB this is a bit trickier to do in one line...
+
     >>> skip_gram(1, 2, "the rain in Spain falls mainly on the plain")
     ['the in', 'rain Spain', 'in falls', 'Spain mainly', 'falls on', 'mainly the', 'on plain']
     >>> skip_gram(1, 3, "the rain in Spain falls mainly on the plain")
@@ -603,8 +645,10 @@ def bigram_predict(t, s):
     """ predict next word based on tokens
     input: tokens t, string s
     output: ngram+1 (where 1 is highest probable next word based on tokens)
+
     NB tokens must consist of bigrams or larger, string input can be a unigram
     empty string returned on no match
+
     >>> bigram_predict({'the rain': 2, 'in spain': 2, 'rain in': 2, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1}, 'in the')
     'rain'
     >>> bigram_predict({'the rain': 2, 'in spain': 2, 'rain in': 2, 'spain falls': 1, 'falls mainly': 1, 'mainly in': 1}, 'in bed')
