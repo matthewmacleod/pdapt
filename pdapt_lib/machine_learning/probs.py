@@ -1,4 +1,13 @@
+#  probs.py
+#
+#  Author: Matthew K. MacLeod
+#
+#  For license information see license.txt
+
+
 """ Probability
+
+    basics
 
 """
 from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial

@@ -1,3 +1,9 @@
+#  cross_validation.py
+#
+#  Author: Matthew K. MacLeod
+#
+#  For license information see license.txt
+
 """ cv module
 
 various routines for splitting up the data set

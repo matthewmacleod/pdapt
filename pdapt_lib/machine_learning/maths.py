@@ -1,3 +1,9 @@
+#  maths.py
+#
+#  Author: Matthew K. MacLeod
+#
+#  For license information see license.txt
+
 import math, sys, os
 
 from pdapt_lib.basics.tco import TailCaller, TailCall, tailcall
@@ -7,6 +13,7 @@ from functools import reduce
 
 
 """ Maths module
+
     basic linear algebra
      vector
      matrix

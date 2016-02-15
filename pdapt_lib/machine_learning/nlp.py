@@ -1,6 +1,12 @@
-""" NLP
-pdapt basic natural language processing code
+#  nlp.py
+#
+#  Author: Matthew K. MacLeod
+#
+#  For license information see license.txt
 
+""" NLP
+
+  pdapt basic natural language processing code
 
 """
 from pdapt_lib.machine_learning.maths import sum_of_squares, dot, factorial

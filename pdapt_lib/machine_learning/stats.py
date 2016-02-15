@@ -1,5 +1,12 @@
+#  stats.py
+#
+#  Author: Matthew K. MacLeod
+#
+#  For license information see license.txt
+
 """ statistics tools
 
+    basic statistics
 
 """
 import math
