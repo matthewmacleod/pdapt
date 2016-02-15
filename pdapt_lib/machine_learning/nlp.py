@@ -347,7 +347,7 @@ def stem(word):
     if exceptions.match(word):
         return word
     else:
-       regex = r'^(.*?)(ies|es|s|ed|ing|ative|ive|ious|ly|ment)?$'
+       regex = r'^(.*?)(ies|es|s|ed|ing|ative|ive|ious|ously|ally|ly|ment)?$'
        stem, _suffix = re.findall(regex, word)[0]
        return stem
 
