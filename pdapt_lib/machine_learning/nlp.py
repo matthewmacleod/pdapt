@@ -340,11 +340,11 @@ def stem(word):
     >>> stem('sterling')
     'sterling'
     """
-    exceptions = re.compile(r"""[A-Za-z]ing|[A-Za-z].ing|
+    exceptions_ing = re.compile(r"""[A-Za-z]ing|[A-Za-z].ing|
                                  [Ss]omething|[Nn]othing|[Dd]uring|[Ee]vening|[Mm]orning|
                                  [Ss]tring|[Cc]eiling|[Ss]terling|[Cc]ling|[Gg]osling|
-                                 [Ii]cing|[Ss]illing|[Ss]ting|[Vv]iking|[Ff]iling|[Cc]arling""", re.X)
-    if exceptions.match(word):
+                                 [Ii]cing|[Ss]hilling|[Ss]ting|[Vv]iking|[Ff]iling|[Cc]arling""", re.X)
+    if exceptions_ing.match(word):
         return word
     else:
        regex = r'^(.*?)(ies|es|s|ed|ing|ative|ive|ious|ously|ally|ly|ment)?$'
