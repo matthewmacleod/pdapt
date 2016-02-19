@@ -23,10 +23,17 @@ def softmax(xs):
     Output: array of probabilities
 
     NB useful to convert array from general numbers to those between 0 and 1
+    NB probabilities will also sum to 1
 
     >>> softmax(np.array([3.0, 1.0, 0.2]))
     array([ 0.8360188 ,  0.11314284,  0.05083836])
+    >>> softmax(np.array([30.0, 10.0, 2.0]))
+    array([  9.99999998e-01,   2.06115362e-09,   6.91440009e-13])
+    >>> softmax(np.array([0.30, 0.1, 0.02]))
+    array([ 0.38842275,  0.31801365,  0.2935636 ])
+    >>> sum(softmax(np.array([0.30, 0.1, 0.02])))
+    1.0
     """
-    smax = np.exp(xs) / sum(np.exp(xs))
+    smax = np.exp(xs) / np.sum(np.exp(xs), axis=0)
     return smax
 
