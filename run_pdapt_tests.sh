@@ -9,7 +9,7 @@ fi
 
 test=$1
 
-modules="maths stats probs cross_validation optimize regression nlp"
+modules="maths stats probs cross_validation optimize regression classification nlp"
 
 . ./bin/activate
 
