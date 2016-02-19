@@ -1,3 +1,9 @@
+#  regression.py
+#
+#  Author: Matthew K. MacLeod
+#
+#  For license information see license.txt
+
 """ regression module
 
 simple linear regression
