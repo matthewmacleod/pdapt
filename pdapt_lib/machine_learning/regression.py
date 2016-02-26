@@ -59,6 +59,7 @@ def inverse_regression_predictions(output, slope, intercept):
     estimated_feature = (output - intercept)/slope
     return estimated_feature
 
+
 # more general regression
 
 def get_numpy_data(data_frame, features, output):
@@ -130,6 +131,55 @@ def regression_gradient_descent(feature_matrix, output, initial_weights, step_si
         if gradient_magnitude < tolerance:
             converged = True
     return(weights)
+
+
+def polynomial_frame(feature, degree):
+    """
+    Input: numpy feature array, powers (degrees) to raise initial feature matrix
+    Output: pandas dataframe with feature^n, feature^(n+1),... feature^degree
+    """
+    poly_frame = pd.DataFrame()
+    poly_frame['power_1'] = feature
+    if degree > 1:
+        for power in range(2, degree + 1):
+            name = 'power_' + str(power)
+            poly_frame[name] =  np.array([x**power for x in feature])
+    return poly_frame
+
+def feature_derivative_ridge(errors, feature, weight, l2_penalty, feature_is_constant):
+    """
+    Input:  If feature_is_constant is True, derivative is twice the dot product of errors and feature
+    Output:
+    """
+    if feature_is_constant:
+        return  2.0 * np.dot(errors, feature)
+    # Otherwise, derivative is twice the dot product plus 2*l2_penalty*weight
+    else:
+        return 2.0 * np.dot(errors, feature) + 2.0 * l2_penalty * weight
+
+def ridge_regression_gradient_descent(feature_matrix, output, initial_weights, step_size, l2_penalty, max_iterations=100):
+    """ gradient descent for l2 regularization
+    """
+    weights = np.array(initial_weights)
+    iterations = 0
+    while iterations < max_iterations:
+        # compute the predictions based on feature_matrix and weights using predict_output() function
+        preds = predict_output(feature_matrix, weights)
+        # compute the errors as predictions - output
+        errors = preds - output
+        for i in range(len(weights)): # loop over each weight
+            # Recall that feature_matrix[:,i] is the feature column associated with weights[i]
+            # compute the derivative for weight[i].
+            # (Remember: when i=0, computing the derivative of the constant!)
+            derivative_i = 0.0
+            if i == 0:
+                derivative_i = feature_derivative_ridge(errors, feature_matrix[:,i], weights[i], l2_penalty, True)
+            else:
+                derivative_i = feature_derivative_ridge(errors, feature_matrix[:,i], weights[i], l2_penalty, False)
+            # subtract the step size times the derivative from the current weight
+            weights[i] = weights[i] - step_size*derivative_i
+        iterations += 1
+    return weights
 
 
 
