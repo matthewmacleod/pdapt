@@ -60,13 +60,43 @@ def inverse_regression_predictions(output, slope, intercept):
     return estimated_feature
 
 # more general regression
+
+def get_numpy_data(data_frame, features, output):
+    """
+    Input: pandas data frame,  a list of feature names (e.g. ['sqft_living', 'bedrooms']) and an target feature e.g. ('price')
+    Output: A numpy matrix whose columns are the desired features plus a constant column (this is how we create an 'intercept')
+    """
+    data_frame['constant'] = 1
+    features = ['constant'] + features
+    features_frame = data_frame[features]
+    feature_matrix = np.mat(features_frame)
+    output_array = np.array(data_frame[output])
+    return(feature_matrix, output_array)
+
 def predict_output(feature_matrix, weights):
-    """ assume feature_matrix is a numpy matrix containing the features
-    as columns and weights is a corresponding numpy array
+    """ create the predictions vector by using np.dot()
+    Input: feature matrix, numpy matrix numpy matrix containing the features as columns and weights is a corresponding numpy array
+    Output: predictions vector
     """
     predictions = np.dot(feature_matrix, weights)
     return(predictions)
 
+def feature_derivative(errors, feature):
+    """
+    Input: Assume that errors and feature are both numpy arrays of the same length (number of data points)
+    Output:   compute twice the dot product of these vectors as 'derivative' and return the value
+    """
+    derivative = 2.0 * np.dot(errors, feature)
+    return(derivative)
+
+def rss(test, out):
+    """
+    Input:  functions output (test), and correct answers (out)
+    Output: residual sum of square errors
+    """
+    residuals = test - out
+    rss = np.dot(residuals, residuals)
+    return rss
 
 def partial_derivative(errors, feature):
     """ assume that errors and feature are both numpy arrays of the same length
@@ -100,6 +130,8 @@ def regression_gradient_descent(feature_matrix, output, initial_weights, step_si
         if gradient_magnitude < tolerance:
             converged = True
     return(weights)
+
+
 
 
 
