@@ -74,6 +74,7 @@ def get_numpy_data(data_frame, features, output):
     output_array = np.array(data_frame[output])
     return(feature_matrix, output_array)
 
+
 def predict_output(feature_matrix, weights):
     """ create the predictions vector by using np.dot()
     Input: feature matrix, numpy matrix numpy matrix containing the features as columns and weights is a corresponding numpy array
@@ -81,6 +82,7 @@ def predict_output(feature_matrix, weights):
     """
     predictions = np.dot(feature_matrix, weights)
     return(predictions)
+
 
 def feature_derivative(errors, feature):
     """
@@ -90,6 +92,7 @@ def feature_derivative(errors, feature):
     derivative = 2.0 * np.dot(errors, feature)
     return(derivative)
 
+
 def rss(test, out):
     """
     Input:  functions output (test), and correct answers (out)
@@ -98,6 +101,7 @@ def rss(test, out):
     residuals = test - out
     rss = np.dot(residuals, residuals)
     return rss
+
 
 def partial_derivative(errors, feature):
     """ assume that errors and feature are both numpy arrays of the same length
@@ -146,6 +150,7 @@ def polynomial_frame(feature, degree):
             poly_frame[name] =  np.array([x**power for x in feature])
     return poly_frame
 
+
 def feature_derivative_ridge(errors, feature, weight, l2_penalty, feature_is_constant):
     """
     Input:  If feature_is_constant is True, derivative is twice the dot product of errors and feature
@@ -156,6 +161,7 @@ def feature_derivative_ridge(errors, feature, weight, l2_penalty, feature_is_con
     # Otherwise, derivative is twice the dot product plus 2*l2_penalty*weight
     else:
         return 2.0 * np.dot(errors, feature) + 2.0 * l2_penalty * weight
+
 
 def ridge_regression_gradient_descent(feature_matrix, output, initial_weights, step_size, l2_penalty, max_iterations=100):
     """ gradient descent for l2 regularization
@@ -181,6 +187,60 @@ def ridge_regression_gradient_descent(feature_matrix, output, initial_weights, s
         iterations += 1
     return weights
 
+
+def normalize_features(feature_matrix):
+    """ normalizes columns of a given feature matrix
+    Input: feature matrix
+    Output: a pair (normalized_features, norms), where the second item contains the norms of original features
+    """
+    norms = np.linalg.norm(feature_matrix, axis=0)
+    normalized_features = feature_matrix / norms
+    return (normalized_features, norms)
+
+
+def rescale_weights(weights, norms):
+    """ normalize weights so can use these weights with unnormalized test data """
+    return weights / norms
+
+
+def lasso_coordinate_descent_step(i, feature_matrix, output, weights, l1_penalty):
+    """ lasso coordinate descent algorithm
+    """
+    # compute prediction
+    prediction = predict_output(feature_matrix, weights)
+    # compute ro[i] = SUM[ [feature_i]*(output - prediction + weight[i]*[feature_i]) ]
+    rho_i = sum(feature_matrix[:,i] * ((output - prediction)+ weights[i]*feature_matrix[:,i]))
+    new_weight_i = 0.0
+    if i == 0: # intercept -- do not regularize
+        new_weight_i = rho_i
+    elif rho_i < -l1_penalty/2.:
+        new_weight_i = rho_i + l1_penalty/2.0
+    elif rho_i > l1_penalty/2.:
+        new_weight_i = rho_i - l1_penalty/2.0
+    else:
+        new_weight_i = 0.
+    return new_weight_i
+
+
+def lasso_cyclical_coordinate_descent(feature_matrix, output, initial_weights, l1_penalty, tolerance):
+    """
+     cyclical coordinate descent where we optimize coordinates 0, 1, ..., (d-1) in order and repeat
+    """
+    weights = np.array(initial_weights)
+    change = np.array(initial_weights) * 0.0
+    converged = False
+    while not converged:
+        for i in range(len(weights)):
+            new_weight = lasso_coordinate_descent_step(i, feature_matrix, output, weights, l1_penalty)
+            # compute change in weight for feature
+            change[i] = np.abs(new_weight - weights[i])
+            # assign new weight
+            weights[i] = new_weight
+        # maximum change in weight, after all changes have been computed
+        max_change = max(change)
+        if max_change < tolerance:
+            converged = True
+    return weights
 
 
 
