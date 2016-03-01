@@ -81,8 +81,9 @@ def predict_output(feature_matrix, weights):
     Output: predictions vector
     """
     predictions = np.dot(feature_matrix, weights)
-    return(predictions)
-
+    pt = predictions.T
+    preds = np.squeeze(np.asarray(pt)) # turn matrix into array
+    return(preds)
 
 def feature_derivative(errors, feature):
     """
