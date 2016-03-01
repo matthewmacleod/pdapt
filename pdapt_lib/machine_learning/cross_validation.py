@@ -63,3 +63,13 @@ def random_split(data, fraction):
     return training, testing, train_indices
 
 
+def make_df_split(data_df, test_portion):
+    """ returns randomized split of actual pandas dataframes, not slices
+    Input: pandas dataframe, test portion eg 0.2 for 80-20 split
+    Output: train and test data frames
+    """
+    train = df.sample(frac=(1.0-test_portion),random_state=200)
+    test = df.drop(train.index)
+    return train, test
+
+
