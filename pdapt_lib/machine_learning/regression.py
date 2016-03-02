@@ -207,10 +207,11 @@ def rescale_weights(weights, norms):
 def lasso_coordinate_descent_step(i, feature_matrix, output, weights, l1_penalty):
     """ lasso coordinate descent algorithm
     """
-    # compute prediction
     prediction = predict_output(feature_matrix, weights)
-    # compute ro[i] = SUM[ [feature_i]*(output - prediction + weight[i]*[feature_i]) ]
-    rho_i = sum(feature_matrix[:,i] * ((output - prediction)+ weights[i]*feature_matrix[:,i]))
+    fmat = feature_matrix[:,i]
+    fmt = fmat.T
+    fm = np.squeeze(np.asarray(fmt)) # convert to array
+    rho_i = sum(fm * ((output-prediction)+ weights[i]*fm))
     new_weight_i = 0.0
     if i == 0: # intercept -- do not regularize
         new_weight_i = rho_i
