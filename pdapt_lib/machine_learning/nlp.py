@@ -300,6 +300,19 @@ def remove_punctuation(s):
     return s
 
 
+def remove_string_punctuation(text):
+    """ use python's built in library (string)
+    Input: string text
+    Output: string text with punctiontion removed
+
+    >>> remove_string_punctuation("A bit of marks # @ ! & * [] {}.")
+    'A bit of marks       '
+    >>> remove_string_punctuation("Another test-for-you!")
+    'Another testforyou'
+    """
+    import string
+    return "".join(i for i in text if i not in string.punctuation)
+
 def remove_stopwords(s):
     """ remove common words
     Input: text string s
