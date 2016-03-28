@@ -15,6 +15,11 @@ Virtualenv setup
       cd pdapt
 
       virtualenv -p /usr/bin/python3 venv
+    
+on mac:
+
+      virtualenv -p /usr/local/bin/python3 venv
+      
 
 
 Lastly, activate your environment:
