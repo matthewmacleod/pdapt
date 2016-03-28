@@ -131,7 +131,7 @@ def regression_gradient_descent(feature_matrix, output, initial_weights, step_si
             partial_i_dotted = np.dot(derivative_i, derivative_i)
             gradient_sum_squares += partial_i_dotted
             # update the weight based on step size and derivative
-            weights[i] = weights[i] - step_size*derivative_i
+            weights[i] = weights[i] - step_size*derivative_i  # gradient descent so -=
         gradient_magnitude = sqrt(gradient_sum_squares)
         if gradient_magnitude < tolerance:
             converged = True
@@ -175,9 +175,9 @@ def ridge_regression_gradient_descent(feature_matrix, output, initial_weights, s
         # compute the errors as predictions - output
         errors = preds - output
         for i in range(len(weights)): # loop over each weight
-            # Recall that feature_matrix[:,i] is the feature column associated with weights[i]
+            # recall that feature_matrix[:,i] is the feature column associated with weights[i]
             # compute the derivative for weight[i].
-            # (Remember: when i=0, computing the derivative of the constant!)
+            # (remember: when i=0, computing the derivative of the constant!)
             derivative_i = 0.0
             if i == 0:
                 derivative_i = feature_derivative_ridge(errors, feature_matrix[:,i], weights[i], l2_penalty, True)
