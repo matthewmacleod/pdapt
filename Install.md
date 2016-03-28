@@ -10,13 +10,18 @@ Virtualenv setup
 
       cd develop
 
-      virtualenv -p /usr/bin/python3 pdapt
+      mkdir pdapt
 
       cd pdapt
 
+      virtualenv -p /usr/bin/python3 venv
+
+
 Lastly, activate your environment:
 
-      source bin/activate
+      source venv/bin/activate
+
+      pip install --upgrade pip
 
 Documentation setup
 -------------------------------------
@@ -84,6 +89,7 @@ Addition packages for cross-checking code
 
       ./bin/pip install rpy2
 
+      ./bin/pip install h2o
 ann
 
       ./bin/pip install theano pyyaml h5py cuDNN
@@ -97,6 +103,11 @@ ann
       ./bin/pip install  https://github.com/dnouri/nolearn/archive/master.zip#egg=nolearn
 
       ./bin/pip install py4j
+
+      TensorFlow:
+
+      ./bin/pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.7.0-py3-none-linux_x86_64.whl
+
 
 webscraping, nlp
 
