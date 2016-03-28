@@ -37,3 +37,14 @@ def softmax(xs):
     smax = np.exp(xs) / np.sum(np.exp(xs), axis=0)
     return smax
 
+
+def logistic(xs):
+    """
+    """
+    return 1.0 / (1.0 + math.exp(-xs))
+
+
+def logistic_derivative(xs):
+    """
+    """
+    return logistic(xs) * (1.0 - logistic(xs))
