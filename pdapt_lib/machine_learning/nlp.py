@@ -685,5 +685,44 @@ def bigram_predict(t, s):
 
 
 
+def tokens(sentences):
+    """ expecting a list of sentences where
+    each sentence is a list of words
+    there are no counts associated with these tokens, just the vocabulary
+    """
+    t = []
+    for sentence in sentences:
+        for w in sentence:
+            if w not in t:
+                t.append(w)
+    return t
+
+
+def get_cooccurance_count(window, target, neighbor, sentences):
+    """ basically we answer this question:
+    how many co-occurances ie counts of j do we have on each side of each occurance of i
+    window is number of words to examine on each side of target occurance
+    >>> get_cooccurance_count(1, 'NLP', 'like', [['I','like','NLP'],['I','like','NLP','problems']])
+    2
+    """
+    count = 0
+    for s in sentences:
+        count += sum((s[i-window:i]+s[i+1:i+1+window]).count(neighbor) for i,w in enumerate(s) if w == target)
+    return count
+
+
+def build_cooccurance_matrix(window, tokens, sentences):
+    """ build co-occurance matrix
+    if X is the co-occurance matrix, it can easily be decomposed with SVD
+           X = USV^T
+    with numpy:
+            U, s, Vh =  np.linalg.svd(X, full_matrices=False)
+    """
+    m = np.zeros((len(tokens),len(tokens)))
+    for i,token_i in enumerate(tokens):
+        for j,token_j in enumerate(tokens):
+            m[i][j] = get_cooccurance_count(window, token_i,token_j, sentences)
+    return m
+
 
 
