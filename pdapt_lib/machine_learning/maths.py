@@ -156,8 +156,8 @@ def angle(v,w):
 def point_angle(a, b, c):
     """ a b c are xyz points, in degrees
     # example:
-    >>> point_angle([-2.975941,3.026175,-1.069039],[-3.318522,2.808196,0.810145],[-3.627889,4.656182,1.240712])
-    97.96661349764267
+    >>> abs(point_angle([-2.975941,3.026175,-1.069039],[-3.318522,2.808196,0.810145],[-3.627889,4.656182,1.240712]) - 97.966613497642) < 0.00000000001
+    True
     """
     ba = vector_subtract(a,b) # vector pointing from b to a is a-b
     bc = vector_subtract(c,b) # vector pointing from b to c is c-b

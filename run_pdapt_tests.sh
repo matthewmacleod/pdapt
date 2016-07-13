@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # simple script to run pdapt tests
 
@@ -11,7 +11,7 @@ test=$1
 
 modules="maths stats probs cross_validation optimize regression classification nlp"
 
-. ./bin/activate
+. ./venv/bin/activate
 
 if [ $test == 'unit' ]; then
     python -m unittest discover pdapt_lib 'test_*.py'
