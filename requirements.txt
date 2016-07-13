@@ -1,6 +1,6 @@
+numpy
 ipython
 jupyter
-numpy
 scipy
 matplotlib
 seaborn

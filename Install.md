@@ -14,12 +14,14 @@ Virtualenv setup
 
       cd pdapt
 
+linux:
+
       virtualenv -p /usr/bin/python3 venv
-    
+
 on mac:
 
       virtualenv -p /usr/local/bin/python3 venv
-      
+
 
 
 Lastly, activate your environment:
@@ -28,15 +30,20 @@ Lastly, activate your environment:
 
       pip install --upgrade pip
 
+      pip install numpy
+
+      pip install -r requirements.txt
+
+
 Documentation setup
 -------------------------------------
 
-      ./bin/easy_install Sphinx
+      easy_install Sphinx
 
 
 document requirements:
 
-     ./bin/pip3 freeze > requirements.txt
+     pip freeze > requirements.txt
 
       mkdir doc
 
@@ -56,25 +63,25 @@ document requirements:
 Additional packages
 -------------------------------------
 
-      ./bin/easy_install ipython
+      easy_install ipython
 
-      ./bin/easy_install "ipython[notebook]"
+      easy_install "ipython[notebook]"
 
-      ./bin/easy_install numpy
+      easy_install numpy
 
-      ./bin/easy_install scipy
+      easy_install scipy
 
-      ./bin/easy_install matplotlib
+      easy_install matplotlib
 
-      ./bin/easy_install nose
+      easy_install nose
 
-      ./bin/easy_install coverage
+      easy_install coverage
 
-      ./bin/easy_install pyflakes
+      easy_install pyflakes
 
-      ./bin/easy_install pep8
+      easy_install pep8
 
-      ./bin/pip install seaborn
+      pip install seaborn
 
 
 
@@ -82,43 +89,44 @@ Additional packages
 Addition packages for cross-checking code
 -------------------------------------
 
-      ./bin/easy_install pandas
+      easy_install pandas
 
-      ./bin/easy_install scikit-learn
+      easy_install scikit-learn
 
-      ./bin/pip install Statsmodels
+      pip install Statsmodels
 
-      ./bin/pip install patsy
+      pip install patsy
 
-      ./bin/pip install git+https://github.com/pymc-devs/pymc3
+      pip install git+https://github.com/pymc-devs/pymc3
 
-      ./bin/pip install rpy2
+      pip install rpy2
 
-      ./bin/pip install h2o
+      pip install h2o
 ann
 
-      ./bin/pip install theano pyyaml h5py cuDNN
+      pip install theano pyyaml h5py cuDNN
 
-      ./bin/pip install keras
+      pip install keras
 
-      ./bin/pip install lasagne
+      pip install lasagne
 
-      ./bin/pip uninstall nolearn
+      pip uninstall nolearn
 
-      ./bin/pip install  https://github.com/dnouri/nolearn/archive/master.zip#egg=nolearn
+      pip install  https://github.com/dnouri/nolearn/archive/master.zip#egg=nolearn
 
-      ./bin/pip install py4j
+      pip install py4j
 
-      ./bin/pip install six
+      pip install six
 
       TensorFlow:
 
-      linux:
+linux:
 
       export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0-cp35-cp35m-linux_x86_64.whl
       pip install --upgrade $TF_BINARY_URL
 
-      mac
+mac:
+
        export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/tensorflow-0.9.0-py3-none-any.whl
 
        pip install --upgrade $TF_BINARY_URL
@@ -126,20 +134,20 @@ ann
 
 webscraping, nlp
 
-      ./bin/pip install beautifulsoup4 requests python-dateutil twython scrapy
+      pip install beautifulsoup4 requests python-dateutil twython scrapy
 
-      ./bin/pip install gensim
+      pip install gensim
 
-      ./bin/pip install nltk
+      pip install nltk
 
-      ./bin/pip install crab
+      pip install crab
 
-      ./bin/pip install pyldavis
+      pip install pyldavis
 
 financial
 
-      ./bin/pip install zipline
+      pip install zipline
 
-      ./bin/pip install Quandl
+      pip install Quandl
 
 
