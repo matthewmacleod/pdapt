@@ -18,7 +18,7 @@ see file:
 
 after install, activate like so:
 
-        . bin/activate
+        . venv/bin/activate
 
 
 to deactivate environment:
