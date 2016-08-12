@@ -191,6 +191,26 @@ def dihedral(a, b, c, d):
    return math.atan2(y,x) * 180.0/math.pi
 
 
+def cosine_distance(x,y):
+    """ cosine distance metric
+    nb: not a proper distance metric but useful
+    >>> cosine_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.5648058601107554
+    """
+    numerator =  np.dot(x,y)
+    denominator = np.sqrt(np.dot(x,x))*np.sqrt(np.dot(y,y))
+    return 1.0 - numerator / denominator
+
+
+def euclidean_distance(x,y):
+    """
+    not scaled
+    >>> euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    3.6055512754639891
+    """
+    return np.sqrt(np.dot((x-y),(x-y)))
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
