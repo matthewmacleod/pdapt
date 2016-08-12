@@ -197,7 +197,7 @@ def cosine_distance(x,y):
     >>> cosine_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     0.5648058601107554
     """
-    numerator =  np.dot(x,y)
+    numerator =  x.dot(y.T)
     denominator = np.sqrt(np.dot(x,x))*np.sqrt(np.dot(y,y))
     return 1.0 - numerator / denominator
 
