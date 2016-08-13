@@ -191,6 +191,16 @@ def dihedral(a, b, c, d):
    return math.atan2(y,x) * 180.0/math.pi
 
 
+def norm(x):
+    """ returns the norm of a vector
+    expects np ararry
+    >>> norm(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]))
+    3.3166247903553998
+    """
+    sum_of_squares = x.dot(x.T)
+    return np.sqrt(sum_of_squares)
+
+
 def cosine_distance(x,y):
     """ cosine distance metric
     nb: not a proper distance metric but useful
@@ -198,7 +208,7 @@ def cosine_distance(x,y):
     0.5648058601107554
     """
     numerator =  x.dot(y.T)
-    denominator = np.sqrt(np.dot(x,x))*np.sqrt(np.dot(y,y))
+    denominator = norm(x) * norm(y)
     return 1.0 - numerator / denominator
 
 
