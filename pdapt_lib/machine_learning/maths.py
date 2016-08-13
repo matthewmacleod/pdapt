@@ -203,12 +203,33 @@ def cosine_distance(x,y):
 
 
 def euclidean_distance(x,y):
-    """
+    """ assumptions:
+    The Euclidean distance assumes that clusters have identity covariances,
+        ie the dimensions are statistically independent and the variance of along each dimension (column) is one.
     not scaled
     >>> euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     3.6055512754639891
     """
     return np.sqrt(np.dot((x-y),(x-y)))
+
+
+def cityblock_distance(x,y):
+    """ expecting np arrays
+    >>> cityblock_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    9.0
+    """
+    differences = np.abs(x-y)
+    return float(differences.sum())
+
+
+def jaccard_distance(x,y):
+    """ sets are convenient, since defined as
+       J =  | intersection | / | union |
+    >>> jaccard_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    1.0
+    """
+    x, y = set(x), set(y)
+    return len(x & y)  / float(len(x | y))
 
 
 if __name__ == "__main__":
