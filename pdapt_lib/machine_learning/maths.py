@@ -220,9 +220,34 @@ def euclidean_distance(x,y):
     nb: not scaled
     >>> euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     3.6055512754639891
+    >>> euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    3.0
     """
     difference = x - y
     return norm(difference)
+
+
+def alternative_euclidean_distance(x,y):
+    """ assumptions:
+    input: expecting np arrays
+    nb: closer vectors should be closer to zero
+    >>> alternative_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.78287072704466754
+    >>> alternative_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.75
+    """
+    difference = x - y
+    return 1.0 - (1.0 / (1.0 + norm(difference)))
+
+
+def pearson_distance(x,y):
+    """ 1 minus pearson
+    >>> pearson_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.5
+    """
+    if len(x) < 3 : return 0.0
+    pearson =  0.5 + 0.5 * np.corrcoef(x, y, rowvar = 0)[0][1]
+    return 1.0 - pearson
 
 
 def braycurtis_distance(x,y):
@@ -268,8 +293,8 @@ def jaccard_distance(x,y):
 
 def sorensen_distance(x,y):
     """ Sorensen distance
-    input: arrays or lists of some sort, converted within to sets
         D_s = 2 intersection  /  (union + intersection)
+    input: arrays or lists of some sort, converted within to sets
     >>> sorensen_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     1.0
     """
