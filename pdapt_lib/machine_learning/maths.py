@@ -206,6 +206,10 @@ def cosine_distance(x,y):
     nb: not a proper distance metric but useful
     >>> cosine_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     0.5648058601107554
+    >>> cosine_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.32159947470003181
+    >>> cosine_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.00024025948370620664
     """
     numerator =  x.dot(y.T)
     denominator = norm(x) * norm(y)
@@ -222,32 +226,11 @@ def euclidean_distance(x,y):
     3.6055512754639891
     >>> euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     3.0
+    >>> euclidean_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.10000000000000009
     """
     difference = x - y
     return norm(difference)
-
-
-def alternative_euclidean_distance(x,y):
-    """ assumptions:
-    input: expecting np arrays
-    nb: closer vectors should be closer to zero
-    >>> alternative_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
-    0.78287072704466754
-    >>> alternative_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
-    0.75
-    """
-    difference = x - y
-    return 1.0 - (1.0 / (1.0 + norm(difference)))
-
-
-def pearson_distance(x,y):
-    """ 1 minus pearson
-    >>> pearson_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
-    0.5
-    """
-    if len(x) < 3 : return 0.0
-    pearson =  0.5 + 0.5 * np.corrcoef(x, y, rowvar = 0)[0][1]
-    return 1.0 - pearson
 
 
 def braycurtis_distance(x,y):
@@ -302,6 +285,71 @@ def sorensen_distance(x,y):
     intersection = float(len(x & y))
     union = float(len(x | y))
     return (2*intersection) / (intersection + union)
+
+
+### custom distances
+
+
+def normalized_sigmoid(x):
+    return 2.0/(1.0 + np.exp(-0.5*x))-1.0
+
+
+def sigmoid_euclidean_distance(x,y):
+    """
+    >>> sigmoid_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.71697295177260845
+    >>> sigmoid_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.6351489523872873
+    >>> sigmoid_euclidean_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.024994792968420665
+    """
+    dist = euclidean_distance(x,y)
+    return normalized_sigmoid(dist)
+
+
+def alternative_euclidean_distance(x,y):
+    """ assumptions:
+    input: expecting np arrays
+    nb: closer vectors should be closer to zero
+    >>> alternative_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.78287072704466754
+    >>> alternative_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.75
+    >>> alternative_euclidean_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.090909090909090939
+    """
+    difference = x - y
+    return 1.0 - (1.0 / (1.0 + norm(difference)))
+
+
+def cosine_sigmoid_euclidean_distance(x,y):
+    """ mean between cosine and sigmoid euclidean distance
+    >>> cosine_sigmoid_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.64088940594168187
+    >>> cosine_sigmoid_euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.47837421354365955
+    >>> cosine_sigmoid_euclidean_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.012617526226063436
+    """
+    cosine_dist = cosine_distance(x,y)
+    sigmoid_dist = sigmoid_euclidean_distance(x,y)
+    return (cosine_dist + sigmoid_dist) / 2.0
+
+
+def pearson_distance(x,y):
+    """ 1 minus pearson
+    >>> pearson_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.77296041684200578
+    >>> pearson_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.5
+    >>> pearson_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.00031570189411622707
+    """
+    if len(x) < 3 : return 0.0
+    pearson =  0.5 + 0.5 * np.corrcoef(x, y, rowvar = 0)[0][1]
+    return 1.0 - pearson
+
+
 
 
 if __name__ == "__main__":
