@@ -216,15 +216,27 @@ def euclidean_distance(x,y):
     """ assumptions:
     The Euclidean distance assumes that clusters have identity covariances,
         ie the dimensions are statistically independent and the variance of along each dimension (column) is one.
-    not scaled
+    input: expecting np arrays
+    nb: not scaled
     >>> euclidean_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     3.6055512754639891
     """
-    return np.sqrt(np.dot((x-y),(x-y)))
+    difference = x - y
+    return norm(difference)
+
+
+def braycurtis_distance(x,y):
+    """ bray curtis distance
+    input: expecting np arrays
+    >>> braycurtis_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.52941176470588236
+    """
+    return np.abs(x - y).sum() / np.abs(x + y).sum()
 
 
 def cityblock_distance(x,y):
     """ expecting np arrays
+    input: expecting np arrays
     >>> cityblock_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     9.0
     """
@@ -232,14 +244,39 @@ def cityblock_distance(x,y):
     return float(differences.sum())
 
 
+def canberra_distance(x,y):
+    """ weighted cityblock
+    input: expecting np arrays
+    >>> canberra_distance(np.array([ 3, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    6.3333333333333339
+    """
+    numerator =  np.abs(x-y)
+    denominator = np.abs(x) + np.abs(y)
+    return (numerator / denominator).sum()
+
+
 def jaccard_distance(x,y):
     """ sets are convenient, since defined as
-       J =  | intersection | / | union |
+       D_j =  | intersection | / | union |
+    input: arrays or lists of some sort, converted within to sets
     >>> jaccard_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
     1.0
     """
     x, y = set(x), set(y)
     return len(x & y)  / float(len(x | y))
+
+
+def sorensen_distance(x,y):
+    """ Sorensen distance
+    input: arrays or lists of some sort, converted within to sets
+        D_s = 2 intersection  /  (union + intersection)
+    >>> sorensen_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    1.0
+    """
+    x, y = set(x), set(y)
+    intersection = float(len(x & y))
+    union = float(len(x | y))
+    return (2*intersection) / (intersection + union)
 
 
 if __name__ == "__main__":
