@@ -267,24 +267,32 @@ def jaccard_distance(x,y):
     """ sets are convenient, since defined as
        D_j =  | intersection | / | union |
     input: arrays or lists of some sort, converted within to sets
-    >>> jaccard_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
-    1.0
+    >>> jaccard_distance(np.array([ 2.0, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0.0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.0
+    >>> jaccard_distance(np.array([ 2.0, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2.0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.0
+    >>> jaccard_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2.0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.25
     """
     x, y = set(x), set(y)
-    return len(x & y)  / float(len(x | y))
+    return 1.0 - len(x & y)  / float(len(x | y))
 
 
 def sorensen_distance(x,y):
     """ Sorensen distance
         D_s = 2 intersection  /  (union + intersection)
     input: arrays or lists of some sort, converted within to sets
-    >>> sorensen_distance(np.array([ 2, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
-    1.0
+    >>> sorensen_distance(np.array([ 2.0, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 0.0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.0
+    >>> sorensen_distance(np.array([ 2.0, 0, 1, 1, 1, 1, 1, 1, 1, 0]), np.array([ 2.0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.0
+    >>> sorensen_distance(np.array([ 1.9, 2, 2, 1, 1, 0, 0,0, 1, 1]), np.array([ 2.0, 2, 2, 1, 1, 0, 0,0, 1, 1]))
+    0.1428571428571429
     """
     x, y = set(x), set(y)
     intersection = float(len(x & y))
     union = float(len(x | y))
-    return (2*intersection) / (intersection + union)
+    return 1.0 - (2*intersection) / (intersection + union)
 
 
 ### custom distances
